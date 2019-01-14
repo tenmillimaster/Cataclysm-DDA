@@ -188,6 +188,45 @@ bool player::handle_gun_damage( item &it )
         }
         return false;
     }
+    else if (it.has_flag("CONSUMABLE")) {
+
+        const int uncork = ((5 * it.ammo_data()->ammo->loudness) + it.ammo_data()->ammo->recoil);
+        const int unc2 = uncork*uncork*0.005;
+        debugmsg("uncork pressure= %i ", uncork);
+        for (auto mod : it.gunmods()) {
+            if (mod->has_flag("CONSUMABLE") && it.ammo_type() == ammotype( "22" ) && one_in( 2 ) ) {
+                debugmsg("killing %s now, low cal exception ", mod->tname());
+                if (mod->inc_damage()) {
+                    add_msg_player_or_npc(m_bad, _("Your attached %s is destroyed by your shot!"),
+                        _("<npcname>'s attached %s is destroyed by their shot!"),
+                        mod->tname().c_str());
+
+                    i_rem(mod);
+                }
+                else {
+                    add_msg_player_or_npc(m_bad, _("Your attached %s is damaged by your shot!"),
+                        _("<npcname>'s %s is damaged by their shot!"),
+                        mod->tname().c_str());
+                }
+            }
+            else if (mod->has_flag("CONSUMABLE")  ) {
+                debugmsg("killing mod now. %i dam ", unc2);
+                if (mod->mod_damage(unc2)) {
+                    add_msg_player_or_npc(m_bad, _("Your attached %s is destroyed by your shot!"),
+                        _("<npcname>'s attached %s is destroyed by their shot!"),
+                        mod->tname().c_str());
+
+                    i_rem(mod);
+                }
+                else {
+                    add_msg_player_or_npc(m_bad, _("Your attached %s is damaged by your shot!"),
+                        _("<npcname>'s %s is damaged by their shot!"),
+                        mod->tname().c_str());
+                }
+            }
+        }
+    }
+
     return true;
 }
 
