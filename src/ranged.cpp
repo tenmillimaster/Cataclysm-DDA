@@ -203,7 +203,7 @@ bool player::handle_gun_damage( item &it )
 
                     i_rem(mod);
                 }
-                else if { ( mod.damage() < mod.max_damage() && one_in( firing->durability ) ) {
+                else if { ( mod.damage() < mod.max_damage() ) {
                     add_msg_player_or_npc(m_bad, _("Your attached %s is damaged by your shot!"),
                                                   _("<npcname>'s %s is damaged by their shot!"),
                         mod->tname().c_str());
@@ -218,7 +218,7 @@ bool player::handle_gun_damage( item &it )
 
                     i_rem(mod);
                 }
-                 else if { ( mod.damage() < mod.max_damage() && one_in( firing->durability ) ) {
+                 else if { ( mod.damage() < mod.max_damage() ) ) {
                     add_msg_player_or_npc(m_bad, _("Your attached %s is damaged by your shot!"),
                                                   _("<npcname>'s %s is damaged by their shot!"),
                         mod->tname().c_str());
