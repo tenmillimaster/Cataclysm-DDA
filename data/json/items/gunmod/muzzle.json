@@ -29,11 +29,11 @@
     "symbol": ":",
     "color": "light_gray",
     "location": "muzzle",
-    "mod_targets": [ "rifle", "shotgun" ],
+    "mod_targets": [ "pistol", "shotgun" ],
     "dispersion_modifier": 15,
     "handling_modifier": 4,
     "loudness_modifier": 14,
-    "min_skills": [ [ "weapon", 2 ] ]
+    "min_skills": [ [ "weapon", 1 ] ]
   },
   {
     "id": "crafted_suppressor",
@@ -53,8 +53,30 @@
     "damage_modifier": -5,
     "dispersion_modifier": 15,
     "handling_modifier": 1,
+    "consume_chance": 30,
     "loudness_modifier": -30,
-    "flags": [ "DISABLE_SIGHTS" ]
+    "flags": [ "DISABLE_SIGHTS", "CONSUMABLE" ]
+  },
+  {
+    "id": "bottle_suppressor",
+    "type": "GUNMOD",
+    "name": "pop bottle silencer",
+    "description": "An expedient 'suppressor',this is essentially a length of duct tape, an improvised gas seal, and an empty 2L bottle.  This hodgepodge will absolutely obscure your sights, affect your accuracy, and self-destruct after a few shots, maybe even just one. Gunfire is extremely loud and this empty soda bottle is not at all going to save your hearing, but will still result a slightly quieter report.",
+    "weight": 880,
+    "volume": 3,
+    "price": 480,
+    "to_hit": 1,
+    "bashing": 3,
+    "material": [ "plastic" ],
+    "symbol": ":",
+    "color": "dark_gray",
+    "location": "muzzle",
+    "mod_targets": [ "pistol", "smg", "rifle" ],
+    "damage_modifier": -5,
+    "dispersion_modifier": 45,
+    "consume_chance": 2,
+    "loudness_modifier": -7,
+    "flags": [ "DISABLE_SIGHTS", "TRADER_AVOID", "CONSUMABLE" ]
   },
   {
     "id": "riv_suppressor",
@@ -89,7 +111,9 @@
     "mod_targets": [ "shotgun" ],
     "damage_modifier": -4,
     "handling_modifier": 2,
-    "loudness_modifier": -30
+    "consume_chance": 3000,
+    "loudness_modifier": -30,
+    "flags": [ "CONSUMABLE" ]
   },
   {
     "id": "suppressor",
@@ -108,7 +132,8 @@
     "mod_targets": [ "pistol", "smg", "rifle" ],
     "install_time": 200,
     "handling_modifier": 2,
-    "loudness_modifier": -50
+    "loudness_modifier": -50,
+    "flags": [ "CONSUMABLE" ]
   },
   {
     "id": "suppressor_compact",
@@ -125,6 +150,7 @@
     "mod_targets": [ "pistol", "smg" ],
     "install_time": 200,
     "handling_modifier": 1,
-    "loudness_modifier": -30
+    "loudness_modifier": -30,
+    "flags": [ "CONSUMABLE" ]
   }
 ]
