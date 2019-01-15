@@ -194,33 +194,33 @@ bool player::handle_gun_damage( item &it )
         const int unc2 = uncork*uncork*0.005;
         debugmsg("uncork pressure= %i ", uncork);
         for (auto mod : it.gunmods()) {
-            if (mod->has_flag("CONSUMABLE") && it.ammo_type() == ammotype( "22" ) && one_in( 2 ) ) {
+            if (mod->has_flag("CONSUMABLE") && it.ammo_type() == ammotype( "22" ) && one_in( mod->type->gunmod->consume_chance ) ) {
                 debugmsg("killing %s now, low cal exception ", mod->tname());
-                if (mod->inc_damage()) {
+                if (mod->mod_damage(1000 *  mod->type->gunmod->consume_dam ))) {
                     add_msg_player_or_npc(m_bad, _("Your attached %s is destroyed by your shot!"),
-                        _("<npcname>'s attached %s is destroyed by their shot!"),
+                                         _("<npcname>'s attached %s is destroyed by their shot!"),
                         mod->tname().c_str());
 
                     i_rem(mod);
                 }
-                else {
+                else if { ( mod.damage() < mod.max_damage() && one_in( firing->durability ) ) {
                     add_msg_player_or_npc(m_bad, _("Your attached %s is damaged by your shot!"),
-                        _("<npcname>'s %s is damaged by their shot!"),
+                                                  _("<npcname>'s %s is damaged by their shot!"),
                         mod->tname().c_str());
                 }
             }
-            else if (mod->has_flag("CONSUMABLE")  ) {
+            else if ( mod->has_flag("CONSUMABLE") && one_in( mod->type->gunmod->consume_chance ) ) {
                 debugmsg("killing mod now. %i dam ", unc2);
                 if (mod->mod_damage(unc2)) {
                     add_msg_player_or_npc(m_bad, _("Your attached %s is destroyed by your shot!"),
-                        _("<npcname>'s attached %s is destroyed by their shot!"),
+                                         _("<npcname>'s attached %s is destroyed by their shot!"),
                         mod->tname().c_str());
 
                     i_rem(mod);
                 }
-                else {
+                 else if { ( mod.damage() < mod.max_damage() && one_in( firing->durability ) ) {
                     add_msg_player_or_npc(m_bad, _("Your attached %s is damaged by your shot!"),
-                        _("<npcname>'s %s is damaged by their shot!"),
+                                                  _("<npcname>'s %s is damaged by their shot!"),
                         mod->tname().c_str());
                 }
             }

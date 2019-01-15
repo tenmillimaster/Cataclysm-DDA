@@ -530,6 +530,12 @@ struct islot_gunmod : common_ranged_data {
     /** Relative adjustment to base gun handling */
     int handling = 0;
 
+    /** Adjustable frequency of CONSUMABLE gunmods getting damaged */
+    int  consume_chance= 10000;
+
+    /** Adjustable damage multiplier for CONSUMABLE gunmods getting damaged */
+    int  consume_dam= 1;
+
     /** Percentage value change to the gun's loading time. Higher is slower */
     int reload_modifier = 0;
 
