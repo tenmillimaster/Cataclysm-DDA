@@ -2102,12 +2102,12 @@
     "description": "The pinnacle of at-home buttermaking, this is a glass jar with an attached crank and agitator meant for separating buttermilk from butter.",
     "weight": 612,
     "volume": 6,
-    "price": 2500,
+    "price": 7000,
     "to_hit": 1,
     "bashing": 4,
     "material": [ "glass", "steel" ],
     "symbol": "/",
-    "color": "light_gray"
+    "color": "brown"
   },
   {
     "id": "churn_wood",
@@ -2117,10 +2117,10 @@
     "description": "The pinnacle of at-home buttermaking, this is a glass jar with an attached crank and agitator meant for separating buttermilk from butter.",
     "weight": 612,
     "volume": 6,
-    "price": 1000,
+    "price": 7000,
     "to_hit": 1,
     "bashing": 4,
-    "material": [ "wood" ],
+    "material": [ "glass", "steel" ],
     "symbol": "/",
     "color": "brown"
   },
