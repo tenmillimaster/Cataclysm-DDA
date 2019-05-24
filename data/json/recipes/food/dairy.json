@@ -1,0 +1,70 @@
+[
+    {
+    "type": "recipe",
+    "result": "brew_milk_curdled",
+    "result_mult": 18,
+    "category": "CC_FOOD",
+    "subcategory": "CSC_FOOD_BREW",
+    "skill_used": "cooking",
+    "difficulty": 5,
+    "skills_required": [ "survival", 4 ],
+    "time": 30000,
+    "batch_time_factors": [ 50, 4 ],
+    "autolearn": true,
+    "book_learn": [ [ "survival_book", 3 ], [ "textbook_survival", 3 ], [ "manual_survival", 3 ] ],
+    "components": [
+      [ [ "milk", 15 ] ],
+      [ [ "vinegar", 3 ] ],
+      [ [ "wild_herbs", 40 ], [ "stomach_large", 1 ], [ "hstomach_large", 1 ], [ "stomach", 2 ], [ "hstomach", 2 ] ]
+    ]
+  },
+  {
+    "type": "recipe",
+    "id_suffix": "from_food_processor",
+    "result": "butter",
+    "//": "50% duty cycle for a 500W processor/blender for 6 min. til someone finds a good duty cycle/RMS wattage for blending.",
+    "category": "CC_FOOD",
+    "subcategory": "CSC_FOOD_OTHER",
+    "skill_used": "cooking",
+    "difficulty": 3,
+    "time": 6000,
+    "batch_time_factors": [ 50, 4 ],
+    "autolearn": [ [ "cooking", 4 ] ],
+    "book_learn": [ [ "brewing_cookbook", 2 ] ],
+    "tools": [ [ [ "food_processor", 90 ] ] ],
+    "byproducts": [ [ "buttermilk", 1 ] ],
+    "components": [ [ [ "milk", 1 ] ] ]
+  },
+  {
+    "type": "recipe",
+    "result": "butter",
+    "id_suffix": "from_churn",
+    "category": "CC_FOOD",
+    "subcategory": "CSC_FOOD_OTHER",
+    "skill_used": "cooking",
+    "difficulty": 3,
+    "time": 30000,
+    "batch_time_factors": [ 50, 4 ],
+    "autolearn": [ [ "cooking", 4 ] ],
+    "book_learn": [ [ "brewing_cookbook", 2 ] ],
+    "tools": [ [ [ "churn", 100 ] ] ],
+    "byproducts": [ [ "buttermilk", 1 ] ],
+    "components": [ [ [ "milk", 1 ] ] ]
+  },
+  {
+    "type": "recipe",
+    "result": "butter",
+    "id_suffix": "from_w_churn",
+    "category": "CC_FOOD",
+    "subcategory": "CSC_FOOD_OTHER",
+    "skill_used": "cooking",
+    "difficulty": 3,
+    "time": 30000,
+    "batch_time_factors": [ 50, 4 ],
+    "autolearn": [ [ "cooking", 4 ] ],
+    "book_learn": [ [ "brewing_cookbook", 2 ] ],
+    "tools": [ [ [ "churn", 100 ] ] ],
+    "byproducts": [ [ "buttermilk", 1 ] ],
+    "components": [ [ [ "milk", 1 ] ] ]
+  }
+]

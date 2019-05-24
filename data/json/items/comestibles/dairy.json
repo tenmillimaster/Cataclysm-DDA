@@ -65,7 +65,7 @@
     "weight": 258,
     "color": "white",
     "spoils_in": "2 d",
-    "container": "jug_plastic",
+    "container": "bottle_plastic",
     "comestible_type": "DRINK",
     "symbol": "~",
     "quench": 20,
