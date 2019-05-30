@@ -15,6 +15,7 @@
     "calories": 132,
     "description": "Baby cow food, appropriated for adult humans.  Spoils rapidly.",
     "price": 38,
+    "rot_transform": "buttermilk",
     "//": "A 12-charge gallon currently goes for around US$4.",
     "material": [ "milk" ],
     "volume": 1,
@@ -77,8 +78,7 @@
     "volume": 1,
     "phase": "liquid",
     "flags": [ "EATEN_COLD" ],
-    "vitamins": [ [ "vitA", 1 ], [ "vitC", 1 ], [ "calcium", 1 ] ],
-    "fun": 0
+    "vitamins": [ [ "vitA", 1 ], [ "vitC", 1 ], [ "calcium", 1 ] ]
   },
   {
     "type": "COMESTIBLE",
@@ -290,5 +290,5 @@
     "charges": 10,
     "vitamins": [ [ "vitA", 2 ], [ "vitC", 1 ], [ "calcium", 7 ] ],
     "fun": 3
-  },
+  }
 ]

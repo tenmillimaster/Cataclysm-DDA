@@ -1639,6 +1639,7 @@ void Item_factory::load( islot_comestible &slot, JsonObject &jo, const std::stri
     assign( jo, "spoils_in", slot.spoils, strict, 1_hours );
     assign( jo, "cooks_like", slot.cooks_like, strict );
     assign( jo, "smoking_result", slot.smoking_result, strict );
+    assign( jo, "rot_transform", slot.rot_transform, strict );
 
     if( jo.has_member( "primary_material" ) ) {
         slot.specific_heat_solid = material_id(

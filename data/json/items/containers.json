@@ -394,11 +394,10 @@
     "volume": 8,
     "price": 0,
     "to_hit": 1,
-    "material": [ "plastic", "aluminum,", "paper" ],
+    "material": [ "plastic", "aluminum", "paper" ],
     "symbol": ")",
     "color": "light_cyan",
     "contains": 8,
-    "seals": true,
     "watertight": true,
     "preserves": true,
     "unseals_into": "carton_open"

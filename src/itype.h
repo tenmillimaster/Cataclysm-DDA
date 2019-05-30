@@ -174,6 +174,10 @@ struct islot_comestible {
 
     /** Chance the above monster group spawns*/
     int rot_spawn_chance = 10;
+
+
+    /** If the item transforms when it rots away instead of getting deleted, this is what it turns into*/
+    itype_id rot_transform = "null";
 };
 
 struct islot_brewable {
