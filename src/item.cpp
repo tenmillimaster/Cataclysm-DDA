@@ -4131,27 +4131,6 @@ void item::calc_rot( time_point time, int temp )
 
     // bday and/or last_rot_check might be zero, if both are then we want calendar::start
     const time_point since = std::max( {last_rot_check, time_point( calendar::start )} );
-        // simulation of different age of food at the start of the game and good/bad storage
-        // conditions by applying starting variation bonus/penalty of +/- 20% of base shelf-life
-        // positive = food was produced some time before calendar::start and/or bad storage
-        // negative = food was stored in good conditions before calendar::start
-        if( since <= calendar::start && goes_bad() ) {
-            time_duration spoil_variation = get_shelf_life() * 0.2f;
-            rot += factor * rng( -spoil_variation, spoil_variation );
-        }
-
-        if( item_tags.count( "COLD" ) ) {
-            rot += factor * ( ( now - since ) / 1_hours *
-                              get_hourly_rotpoints_at_temp( temperatures::fridge ) * 1_turns ) ;
-        } else {
-            rot += factor * get_rot_since( since, now, location );
-        }
-        itype_id rot_transform = type->comestible->rot_transform;
-        if( get_relative_rot() < 0.9 && rot_transform != "" ) {
-          convert( rot_transform );
-          set_relative_rot( 0 );
-          rot = 0;
-        }
 
     // simulation of different age of food at the start of the game and good/bad storage
     // conditions by applying starting variation bonus/penalty of +/- 20% of base shelf-life
@@ -4167,7 +4146,8 @@ void item::calc_rot( time_point time, int temp )
     last_rot_check = time;
 
     itype_id rot_targ = type->comestible->rot_transform;
-    if( get_relative_rot() >= 0.9 && !rot_targ.empty() ) {
+    debugmsg( "rot target  is: %s", type->comestible->rot_transform );
+    if( get_relative_rot() >= 0.9 &&  rot_targ != "NULL" ) {
       convert( rot_targ );
       set_relative_rot( 0 );
       rot = 0;

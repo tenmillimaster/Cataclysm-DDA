@@ -177,7 +177,7 @@ struct islot_comestible {
 
 
     /** If the item transforms when it rots away instead of getting deleted, this is what it turns into*/
-    itype_id rot_transform = "null";
+    itype_id rot_transform = "NULL";
 };
 
 struct islot_brewable {
