@@ -4165,6 +4165,13 @@ void item::calc_rot( time_point time, int temp )
     time_duration time_delta = time - since;
     rot += factor * time_delta / 1_hours * get_hourly_rotpoints_at_temp( temp ) * 1_turns;
     last_rot_check = time;
+
+    itype_id rot_targ = type->comestible->rot_transform;
+    if( get_relative_rot() >= 0.9 && !rot_targ.empty() ) {
+      convert( rot_targ );
+      set_relative_rot( 0 );
+      rot = 0;
+    }
 }
 
 void item::calc_rot_while_processing( time_duration processing_duration )
