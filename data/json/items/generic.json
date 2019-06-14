@@ -1713,6 +1713,21 @@
   },
   {
     "type": "GENERIC",
+    "id": "glass_powder",
+    "symbol": ",",
+    "color": "light_cyan",
+    "name": "glass powder",
+    "category": "other",
+    "description": "It used to be a pile of sand, then it was a nice piece of glass, and now it's a pile of fine glass powder.  It may not be course and rough anymore, but now it's even more irritating and will get everywhere.",
+    "material": "glass",
+    "ammo_type": "components",
+    "stack_size": 100,
+    "weight": 89,
+    "volume": 1,
+    "to_hit": -1
+  },
+  {
+    "type": "GENERIC",
     "id": "mirror",
     "symbol": "o",
     "color": "light_cyan",

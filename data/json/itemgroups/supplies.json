@@ -187,6 +187,7 @@
       [ "bearing", 1 ],
       [ "permanent_marker", 20 ],
       [ "cu_pipe", 50 ],
+      [ "herbicide", 25 ],
       [ "fungicide", 5 ],
       [ "charcoal", 5 ],
       { "group": "ammo_pocket_batteries_full", "prob": 50 },
@@ -227,6 +228,7 @@
       [ "chem_acetic_acid", 10 ],
       [ "chem_formaldehyde", 10 ],
       [ "chem_acetone", 10 ],
+      [ "chem_DCM", 15 ],
       [ "chem_carbide", 10 ],
       [ "chem_ammonium_nitrate", 10 ],
       [ "chem_chromium_oxide", 10 ],
@@ -270,6 +272,7 @@
     "items": [
       [ "fertilizer_commercial", 100 ],
       [ "fertilizer_liquid", 60 ],
+      [ "herbicide", 20 ],
       [ "material_quicklime", 80 ],
       { "item": "chem_saltpetre", "prob": 15, "charges-min": 10, "charges-max": 50 }
     ]

@@ -18,6 +18,26 @@
     "price": 300
   },
   {
+    "id": "software_spectra",
+    "copy-from": "software",
+    "type": "GENERIC",
+    "name": "NIST multi-spectral library",
+    "name_plural": "NIST multi-spectral library",
+    "description": "A staggeringly expensive collection of various types of spectra for various organic and inorganic compounds.  Included is library search and interpretation software.",
+    "//" : "incredibly expensive since this is standard NIST library + other spectral libraries",
+    "price": 20000
+  },
+  {
+    "id": "software_merck",
+    "copy-from": "software",
+    "type": "GENERIC",
+    "name": "CRC-Merck database",
+    "name_plural": "CRC-Merck database",
+    "description": "A large database of chemical and physical properties like boiling points, solubilities and dissociation constants in an easily searchable database program.",
+    "//" : "incredibly expensive since this is standard NIST library + other spectral libraries",
+    "price": 60000
+  },
+  {
     "id": "software_hacking",
     "copy-from": "software",
     "type": "GENERIC",
