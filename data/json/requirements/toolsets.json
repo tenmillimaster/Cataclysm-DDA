@@ -12,6 +12,12 @@
     "tools": [ [ [ "fire", -1 ], [ "brick_kiln", 1 ], [ "kiln", 1 ] ] ]
   },
   {
+    "id": "blowtorch_standard",
+    "type": "requirement",
+    "//": "Annealing, melting, preheating, brazing, plumbing-type soldering, controlled burns, or making creme brulee.",
+    "tools": [ [ ] ]
+  },
+  {
     "id": "forging_standard",
     "type": "requirement",
     "//": "Forging of steel items (per steel chunk), charcoal forge is already a substitute for forge",

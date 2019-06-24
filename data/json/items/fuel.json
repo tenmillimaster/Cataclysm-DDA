@@ -114,6 +114,53 @@
     }
   },
   {
+    "id": "propane",
+    "type": "AMMO",
+    "name": "liquid propane",
+    "description": "Liquid propane, produced either via natural gas purification or as a byproduct of petroleum cracking.  Useful for barbecuing, heating, fueling LPG vehicles like busses and forklifts, and pressurizing aersol products.  Also in the years preceding the riots, improvised explosives.",
+    "weight": 126,
+    "volume": 1,
+    "price": 8,
+    "//": "Energy density is 1000 J/ml",
+    "material": [ "hydrocarbons" ],
+    "symbol": "=",
+    "color": "red",
+    "count": 250,
+    "stack_size": ,
+    "phase": "gas",
+    "container": "jerrycan",
+    "ammo_type": "volatile_fuel",
+    "effects": [ "COOKOFF" ],
+    "explode_in_fire": true,
+    "fuel": {
+      "energy": 22,
+      "explosion_data": { "chance_hot": 5, "chance_cold": 10, "factor": 0.2, "fiery": true, "size_factor": 0.1 }
+    },
+    "flags": [ "NO_DROP", "IRREMOVABLE" ]
+  },
+  {
+    "id": "butane",
+    "type": "AMMO",
+    "name": "liquid butane",
+    "description": "Liquid butane, produced either via natural gas purification or as a byproduct of petroleum cracking.  Commonly used to fill lighters, blowtorches, and portable camp stoves or to fuel LPG vehicles.  Mandatory for chinese style hot pot.",
+    "weight": 144,
+    "volume": 1,
+    "price": 21,
+    "material": [ "hydrocarbons" ],
+    "symbol": "=",
+    "color": "red",
+    "count": 250,
+    "stack_size": ,
+    "ammo_type": "volatile_fuel",
+    "effects": [ "COOKOFF" ],
+    "explode_in_fire": true,
+    "fuel": {
+      "energy": 26,
+      "explosion_data": { "chance_hot": 5, "chance_cold": 10, "factor": 0.2, "fiery": true, "size_factor": 0.1 }
+    },
+    "flags": [ "NO_DROP", "IRREMOVABLE" ]
+  },
+  {
     "id": "lamp_oil",
     "type": "AMMO",
     "name": "lamp oil",
