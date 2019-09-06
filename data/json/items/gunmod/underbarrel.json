@@ -210,7 +210,8 @@
     "color": "dark_gray",
     "location": "underbarrel",
     "mod_targets": [ "rifle", "crossbow" ],
-    "gun_data": { "ammo": "40mm", "skill": "launcher", "dispersion": 270, "durability": 10, "clip_size": 1 },
+    "gun_data": { "ammo": "40mm", "skill": "launcher",
+    "modes": [ [ "DEFAULT", "semi-auto", 1 ] ], "dispersion": 270, "durability": 10, "clip_size": 1 },
     "dispersion_modifier": 60,
     "min_skills": [ [ "weapon", 2 ], [ "launcher", 1 ] ],
     "flags": [ "NEVER_JAMS", "RELOAD_EJECT", "FIREDETACHED" ]
@@ -322,6 +323,33 @@
     "dispersion_modifier": 30,
     "min_skills": [ [ "weapon", 2 ], [ "shotgun", 1 ] ],
     "flags": [ "RELOAD_ONE" ]
+  },
+  {
+    "id": "zip22",
+    "type": "GUNMOD",
+    "name": "Zip 22",
+    "description": "This conglomeration of plastic and steel technically constitutes a firearm, though how you're supposed to hold it isn't readily apparent.  The Zip-22 presents a safety hazard to both targets and shooter.  This one bears a mounting clamp for picatinny rail attachment, and could be mounted to the underside of many firearms.  Accepts 10/22 magazines.",
+    "weight": 130,
+    "volume": "226 ml",
+    "price": 13100,
+    "symbol": ":",
+    "to_hit": -2,
+    "color": "dark_gray",
+    "bashing": 1,
+    "material": [ "plastic", "steel" ],
+    "location": "underbarrel",
+    "mod_targets": [ "pistol", "smg", "crossbow", "rifle", "launcher" ],
+    "gun_data": {
+      "ammo": "22",
+      "skill": "pistol",
+      "ranged_damage": -2,
+      "dispersion": 550,
+      "durability": 2,
+      "magazine_well": 1,
+          "modes": [ [ "DEFAULT", "semi-auto", 1 ] ], 
+      "magazines": [ [ "22", [ "ruger1022mag", "ruger1022bigmag" ] ] ],
+      "flags": [ "FIREDETACHED" ]
+    }
   },
   {
     "id": "lead_laser_sight",

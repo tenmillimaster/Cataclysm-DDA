@@ -607,7 +607,7 @@ bool avatar_action::fire_check( avatar &you, const map &m, const targeting_data 
     }
 
     item &weapon = *args.relevant;
-    if( weapon.is_gunmod() && weapon.!has_flag( "FIREDETACHED" ) ) {
+    if( weapon.is_gunmod() && !weapon.has_flag("FIREDETACHED") ) {
         add_msg( m_info,
                  _( "The %s must be attached to a gun, it can not be fired separately." ),
                  weapon.tname() );

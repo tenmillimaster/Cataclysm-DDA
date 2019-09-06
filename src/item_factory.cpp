@@ -257,7 +257,8 @@ void Item_factory::finalize_pre( itype &obj )
     if( obj.magazine && obj.magazine->default_ammo == "NULL" ) {
         obj.magazine->default_ammo = ammotype( *obj.magazine->type.begin() )->default_ammotype();
     }
-    if( obj.gun ) {
+    
+    if( obj.gun  || obj.item_tags.count( "FIREDETACHED" ) ) {
         handle_legacy_ranged( *obj.gun );
         // TODO: add explicit action field to gun definitions
         const auto defmode_name = [&]() {
