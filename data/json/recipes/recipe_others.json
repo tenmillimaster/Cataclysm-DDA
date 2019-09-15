@@ -1166,6 +1166,18 @@
   },
   {
     "type": "recipe",
+    "result": "kevlar_plate",
+    "category": "CC_OTHER",
+    "subcategory": "CSC_OTHER_MATERIALS",
+    "skill_used": "tailor",
+    "time": "2 m",
+    "autolearn": true,
+    "reversible": true,
+    "using": [ [ "sewing_standard", 15 ] ],
+    "components": [ [ [ "kevlar_patch", 16 ] ] ]
+  },
+  {
+    "type": "recipe",
     "result": "vehicle_controls",
     "category": "CC_OTHER",
     "subcategory": "CSC_OTHER_PARTS",
