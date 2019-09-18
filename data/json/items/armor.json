@@ -105,6 +105,15 @@
     "flags": [ "OVERSIZE", "OUTER", "ALLOWS_NATURAL_ATTACKS" ]
   },
   {
+    "id": "apron_cut_resistant",
+    "type": "ARMOR",
+    "name": "cut-resistant apron",
+    "description": "An apron made of kevlar fabric which provides excellent protection from cuts.",
+    "copy-from": "apron_leather",
+    "price": 3800,
+    "material": [ "kevlar" ]
+  },
+  {
     "id": "apron_leather",
     "type": "ARMOR",
     "name": "leather apron",
@@ -217,6 +226,18 @@
     "material_thickness": 3,
     "environmental_protection": 2,
     "flags": [ "STURDY", "BELTED", "BLOCK_WHILE_WORN", "WATER_FRIENDLY" ]
+  },
+  {
+    "id": "armguard_cut_resistant",
+    "type": "ARMOR",
+    "category": "armor",
+    "name": "pair of cut-resistant arm sleeves",
+    "name_plural": "pairs of cut-resistant arm sleeves",
+    "description": "A long pair of cut resistant sleeves, with thumbholes.  Useful for chainsaw protection.",
+    "weight": "113 g",
+    "copy-from": "armguard_soft",
+    "price": 1200,
+    "material": [ "kevlar" ]
   },
   {
     "id": "armguard_acidchitin",
@@ -788,6 +809,15 @@
     "warmth": 30,
     "material_thickness": 2,
     "flags": [ "VARSIZE", "SKINTIGHT" ]
+  },
+  {
+    "id": "balaclava_cut_resistant",
+    "type": "ARMOR",
+    "name": "cut-resistant balaclava",
+    "description": "A face covering garment that helps protect from slashes and cuts, in addition to the cold.",
+    "copy-from": "balaclava",
+    "price": 7600,
+    "material": [ "kevlar" ]
   },
   {
     "id": "baldric",
@@ -1657,6 +1687,18 @@
     "flags": [ "VARSIZE", "STURDY" ]
   },
   {
+    "id": "chaps_cut_resistant",
+    "type": "ARMOR",
+    "name": "chainsaw chaps",
+    "name_plural": "chainsaw chaps",
+    "description": "A pair of tough chaps made of kevlar.  Chainsaw kickbacks are potentially fatal; personal protective equipment like these chaps help protect your femoral arteries.  The layered kevlar is designed to fray on contact with the chain and bind up the tool.",
+    "weight": "1519 g",
+    "copy-from": "chaps_leather",
+    "price": 7800,
+    "material": [ "kevlar_layered" ],
+    "material_thickness": 2,
+  },
+  {
     "id": "chaps_leather",
     "type": "ARMOR",
     "name": "leather chaps",
@@ -2332,7 +2374,7 @@
     "price": 4500,
     "to_hit": 2,
     "bashing": 1,
-    "material": [ "kevlar", "plastic" ],
+    "material": [ "plastic" ],
     "symbol": "[",
     "color": "dark_gray",
     "covers": [ "TORSO" ],
@@ -2540,7 +2582,7 @@
     "weight": "800 g",
     "volume": "2500 ml",
     "price": 3000,
-    "material": [ "cotton", "kevlar" ],
+    "material": [ "cotton" ],
     "symbol": "[",
     "color": "white",
     "covers": [ "TORSO", "ARMS" ],
@@ -2576,7 +2618,7 @@
     "weight": "450 g",
     "volume": "2 L",
     "price": 2500,
-    "material": [ "cotton", "kevlar" ],
+    "material": [ "cotton" ],
     "symbol": "[",
     "color": "white",
     "covers": [ "LEGS" ],
@@ -2928,7 +2970,7 @@
     "volume": "250 ml",
     "price": 7500,
     "to_hit": -2,
-    "material": [ "kevlar", "plastic" ],
+    "material": [ "plastic" ],
     "symbol": "[",
     "color": "dark_gray",
     "covers": [ "EYES" ],
@@ -3402,7 +3444,7 @@
     "volume": "500 ml",
     "price": 5200,
     "to_hit": 2,
-    "material": [ "kevlar", "leather" ],
+    "material": [ "plastic", "leather" ],
     "symbol": "[",
     "color": "dark_gray",
     "covers": [ "HANDS" ],
@@ -3481,7 +3523,7 @@
     "volume": "250 ml",
     "price": 9000,
     "to_hit": 2,
-    "material": [ "steel", "cotton" ],
+    "material": [ "kevlar" ],
     "symbol": "[",
     "color": "light_gray",
     "looks_like": "gloves_work",
