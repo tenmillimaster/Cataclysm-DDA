@@ -306,31 +306,56 @@ static void do_blast( const tripoint &p, const float power,
             float high_mul;
             float armor_mul;
         };
+            static const std::array<blastable_part, 6> blast_parts;
+        if( pl->worn_with_flag( "OVERPRESSURE_ARMOR1" ) ) { {
+                  blast_parts= { {
+                    { bp_torso, 2.0f, 3.0f, 1.0f },
+                    { bp_head,  2.0f, 3.0f, 1.0f },
+                    // Hit limbs harder so that it hurts more without being much more deadly
+                    { bp_leg_l, 2.0f, 3.5f, 0.9f },
+                    { bp_leg_r, 2.0f, 3.5f, 0.9f },
+                    { bp_arm_l, 2.0f, 3.5f, 0.9f },
+                    { bp_arm_r, 2.0f, 3.5f, 0.9f },
+                }
+            };
+        } else if( pl->worn_with_flag( "OVERPRESSURE_ARMOR2" ) ) {
+           blast_parts = { {
+                    { bp_torso, 2.0f, 3.0f, 0.8f },
+                    { bp_head,  2.0f, 3.0f, 0.8f },
+                    // Hit limbs harder so that it hurts more without being much more deadly
+                    { bp_leg_l, 2.0f, 3.5f, 0.7f },
+                    { bp_leg_r, 2.0f, 3.5f, 0.7f },
+                    { bp_arm_l, 2.0f, 3.5f, 0.7f },
+                    { bp_arm_r, 2.0f, 3.5f, 0.7f },
+                }
+            };
+        } else {
+             blast_parts = { {
+                    { bp_torso, 2.0f, 3.0f, 0.5f },
+                    { bp_head,  2.0f, 3.0f, 0.5f },
+                    // Hit limbs harder so that it hurts more without being much more deadly
+                    { bp_leg_l, 2.0f, 3.5f, 0.4f },
+                    { bp_leg_r, 2.0f, 3.5f, 0.4f },
+                    { bp_arm_l, 2.0f, 3.5f, 0.4f },
+                    { bp_arm_r, 2.0f, 3.5f, 0.4f },
+                }
+            };
 
-        static const std::array<blastable_part, 6> blast_parts = { {
-                { bp_torso, 2.0f, 3.0f, 0.5f },
-                { bp_head,  2.0f, 3.0f, 0.5f },
-                // Hit limbs harder so that it hurts more without being much more deadly
-                { bp_leg_l, 2.0f, 3.5f, 0.4f },
-                { bp_leg_r, 2.0f, 3.5f, 0.4f },
-                { bp_arm_l, 2.0f, 3.5f, 0.4f },
-                { bp_arm_r, 2.0f, 3.5f, 0.4f },
-            }
         };
+    }
+    for( const auto &blp : blast_parts ) {
+        const int part_dam = rng( force * blp.low_mul, force * blp.high_mul );
+        const std::string hit_part_name = body_part_name_accusative( blp.bp );
+        const auto dmg_instance = damage_instance( DT_BASH, part_dam, 0, blp.armor_mul );
+        const auto result = pl->deal_damage( nullptr, blp.bp, dmg_instance );
+        const int res_dmg = result.total_damage();
 
-        for( const auto &blp : blast_parts ) {
-            const int part_dam = rng( force * blp.low_mul, force * blp.high_mul );
-            const std::string hit_part_name = body_part_name_accusative( blp.bp );
-            const auto dmg_instance = damage_instance( DT_BASH, part_dam, 0, blp.armor_mul );
-            const auto result = pl->deal_damage( nullptr, blp.bp, dmg_instance );
-            const int res_dmg = result.total_damage();
-
-            add_msg( m_debug, "%s for %d raw, %d actual", hit_part_name, part_dam, res_dmg );
-            if( res_dmg > 0 ) {
-                pl->add_msg_if_player( m_bad, _( "Your %s is hit for %d damage!" ), hit_part_name, res_dmg );
-            }
+        add_msg( m_debug, "%s for %d raw, %d actual", hit_part_name, part_dam, res_dmg );
+        if( res_dmg > 0 ) {
+            pl->add_msg_if_player( m_bad, _( "Your %s is hit for %d damage!" ), hit_part_name, res_dmg );
         }
     }
+}
 }
 
 static std::vector<tripoint> shrapnel( const tripoint &src, int power,
@@ -377,7 +402,7 @@ static std::vector<tripoint> shrapnel( const tripoint &src, int power,
         for( int y = start.y; y < end.y; y++ ) {
             fragment_cloud &cloud = visited_cache[x][y];
             if( cloud.density <= MIN_FRAGMENT_DENSITY ||
-                cloud.velocity <= MIN_EFFECTIVE_VELOCITY ) {
+                    cloud.velocity <= MIN_EFFECTIVE_VELOCITY ) {
                 continue;
             }
             distrib.emplace_back( x, y, src.z );
@@ -593,8 +618,8 @@ void shockwave( const tripoint &p, int radius, int force, int stun, int dam_mult
         }
     }
     if( rl_dist( g->u.pos(), p ) <= radius && !ignore_player &&
-        ( !g->u.has_trait( trait_id( "LEG_TENT_BRACE" ) ) || g->u.footwear_factor() == 1 ||
-          ( g->u.footwear_factor() == .5 && one_in( 2 ) ) ) ) {
+            ( !g->u.has_trait( trait_id( "LEG_TENT_BRACE" ) ) || g->u.footwear_factor() == 1 ||
+              ( g->u.footwear_factor() == .5 && one_in( 2 ) ) ) ) {
         add_msg( m_bad, _( "You're caught in the shockwave!" ) );
         g->knockback( p, g->u.pos(), force, stun, dam_mult );
     }
@@ -627,7 +652,7 @@ void emp_blast( const tripoint &p )
     }
     // TODO: More terrain effects.
     if( g->m.ter( point( x, y ) ) == t_card_science || g->m.ter( point( x, y ) ) == t_card_military ||
-        g->m.ter( point( x, y ) ) == t_card_industrial ) {
+            g->m.ter( point( x, y ) ) == t_card_industrial ) {
         int rn = rng( 1, 100 );
         if( rn > 92 || rn < 40 ) {
             if( sight ) {
@@ -659,16 +684,16 @@ void emp_blast( const tripoint &p )
             int deact_chance = 0;
             const auto mon_item_id = critter.type->revert_to_itype;
             switch( critter.get_size() ) {
-                case MS_TINY:
-                    deact_chance = 6;
-                    break;
-                case MS_SMALL:
-                    deact_chance = 3;
-                    break;
-                default:
-                    // Currently not used, I have no idea what chances bigger bots should have,
-                    // Maybe export this to json?
-                    break;
+            case MS_TINY:
+                deact_chance = 6;
+                break;
+            case MS_SMALL:
+                deact_chance = 3;
+                break;
+            default:
+                // Currently not used, I have no idea what chances bigger bots should have,
+                // Maybe export this to json?
+                break;
             }
             if( !mon_item_id.empty() && deact_chance != 0 && one_in( deact_chance ) ) {
                 if( sight ) {
@@ -751,69 +776,69 @@ void resonance_cascade( const tripoint &p )
     for( int &i = dest.x; i <= endx; i++ ) {
         for( int &j = dest.y; j <= endy; j++ ) {
             switch( rng( 1, 80 ) ) {
-                case 1:
-                case 2:
-                    emp_blast( dest );
-                    break;
-                case 3:
-                case 4:
-                case 5:
-                    for( int k = i - 1; k <= i + 1; k++ ) {
-                        for( int l = j - 1; l <= j + 1; l++ ) {
-                            field_type_id type = fd_null;
-                            switch( rng( 1, 7 ) ) {
-                                case 1:
-                                    type = fd_blood;
-                                    break;
-                                case 2:
-                                    type = fd_bile;
-                                    break;
-                                case 3:
-                                case 4:
-                                    type = fd_slime;
-                                    break;
-                                case 5:
-                                    type = fd_fire;
-                                    break;
-                                case 6:
-                                case 7:
-                                    type = fd_nuke_gas;
-                                    break;
-                            }
-                            if( !one_in( 3 ) ) {
-                                g->m.add_field( { k, l, p.z }, type, 3 );
-                            }
+            case 1:
+            case 2:
+                emp_blast( dest );
+                break;
+            case 3:
+            case 4:
+            case 5:
+                for( int k = i - 1; k <= i + 1; k++ ) {
+                    for( int l = j - 1; l <= j + 1; l++ ) {
+                        field_type_id type = fd_null;
+                        switch( rng( 1, 7 ) ) {
+                        case 1:
+                            type = fd_blood;
+                            break;
+                        case 2:
+                            type = fd_bile;
+                            break;
+                        case 3:
+                        case 4:
+                            type = fd_slime;
+                            break;
+                        case 5:
+                            type = fd_fire;
+                            break;
+                        case 6:
+                        case 7:
+                            type = fd_nuke_gas;
+                            break;
+                        }
+                        if( !one_in( 3 ) ) {
+                            g->m.add_field( { k, l, p.z }, type, 3 );
                         }
                     }
-                    break;
-                case  6:
-                case  7:
-                case  8:
-                case  9:
-                case 10:
-                    g->m.trap_set( dest, tr_portal );
-                    break;
-                case 11:
-                case 12:
-                    g->m.trap_set( dest, tr_goo );
-                    break;
-                case 13:
-                case 14:
-                case 15:
-                    spawn_details = MonsterGroupManager::GetResultFromGroup( mongroup_id( "GROUP_NETHER" ) );
-                    invader = monster( spawn_details.name, dest );
-                    g->add_zombie( invader );
-                    break;
-                case 16:
-                case 17:
-                case 18:
-                    g->m.destroy( dest );
-                    break;
-                case 19:
-                    explosion( dest, rng( 1, 10 ), rng( 0, 1 ) * rng( 0, 6 ), one_in( 4 ) );
-                    break;
-                default:
-                    break;
+                }
+                break;
+            case  6:
+            case  7:
+            case  8:
+            case  9:
+            case 10:
+                g->m.trap_set( dest, tr_portal );
+                break;
+            case 11:
+            case 12:
+                g->m.trap_set( dest, tr_goo );
+                break;
+            case 13:
+            case 14:
+            case 15:
+                spawn_details = MonsterGroupManager::GetResultFromGroup( mongroup_id( "GROUP_NETHER" ) );
+                invader = monster( spawn_details.name, dest );
+                g->add_zombie( invader );
+                break;
+            case 16:
+            case 17:
+            case 18:
+                g->m.destroy( dest );
+                break;
+            case 19:
+                explosion( dest, rng( 1, 10 ), rng( 0, 1 ) * rng( 0, 6 ), one_in( 4 ) );
+                break;
+            default:
+                break;
             }
         }
     }
