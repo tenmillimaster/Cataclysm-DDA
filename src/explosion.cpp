@@ -306,7 +306,15 @@ static void do_blast( const tripoint &p, const float power,
             float high_mul;
             float armor_mul;
         };
-            static const std::array<blastable_part, 6> blast_parts;
+            static const std::array<blastable_part, 6> blast_parts ={ {
+                    { bp_torso, 2.0f, 3.0f, 0.5f },
+                    { bp_head,  2.0f, 3.0f, 0.5f },
+                    // Hit limbs harder so that it hurts more without being much more deadly
+                    { bp_leg_l, 2.0f, 3.5f, 0.4f },
+                    { bp_leg_r, 2.0f, 3.5f, 0.4f },
+                    { bp_arm_l, 2.0f, 3.5f, 0.4f },
+                    { bp_arm_r, 2.0f, 3.5f, 0.4f },
+              }  };
         if( pl->worn_with_flag( "OVERPRESSURE_ARMOR1" ) ) { {
                   blast_parts= { {
                     { bp_torso, 2.0f, 3.0f, 1.0f },
@@ -329,17 +337,7 @@ static void do_blast( const tripoint &p, const float power,
                     { bp_arm_r, 2.0f, 3.5f, 0.7f },
                 }
             };
-        } else {
-             blast_parts = { {
-                    { bp_torso, 2.0f, 3.0f, 0.5f },
-                    { bp_head,  2.0f, 3.0f, 0.5f },
-                    // Hit limbs harder so that it hurts more without being much more deadly
-                    { bp_leg_l, 2.0f, 3.5f, 0.4f },
-                    { bp_leg_r, 2.0f, 3.5f, 0.4f },
-                    { bp_arm_l, 2.0f, 3.5f, 0.4f },
-                    { bp_arm_r, 2.0f, 3.5f, 0.4f },
-                }
-            };
+        }
 
         };
     }
