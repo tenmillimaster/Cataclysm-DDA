@@ -232,6 +232,12 @@
   },
   {
     "type": "start_location",
+    "ident": "mansion",
+    "name": "Mansion",
+    "target": "mansion_wild"
+  },
+  {
+    "type": "start_location",
     "ident": "police",
     "name": "Police Station",
     "target": "police"

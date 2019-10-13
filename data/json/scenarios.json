@@ -90,6 +90,34 @@
   },
   {
     "type": "scenario",
+    "ident": "surrounded",
+    "name": "Surrounded",
+    "points": -2,
+    "description": "You've attracted the attention of living dead in some way, now they're all around and you'll likely have to fight thorough them if you want to escape.",
+    "allowed_locs": [
+      "house",
+      "school",
+      "s_grocery",
+      "s_grocery_1",
+      "s_garage",
+      "furniture",
+      "boarded_house",
+      "s_library",
+      "s_bookstore",
+      "zoo_0_1",
+      "zoo_1_1",
+      "golfcourse_11",
+      "golfcourse_31",
+      "fire_station",
+      "police",
+      "religous_church",
+      "religous_cemetery"
+    ],
+    "start_name": "In Town",
+    "flags": [ "SUR_START", "CITY_START", "LONE_START" ]
+  },
+  {
+    "type": "scenario",
     "ident": "isolationist",
     "name": "Safe Place",
     "points": 1,
@@ -327,6 +355,17 @@
     "start_name": "Enclosed Shelter",
     "flags": [ "WIN_START", "LONE_START" ],
     "professions": [ "sheltered_militia", "sheltered_survivor", "bionic_prepper", "unemployed" ]
+  },
+  {
+      
+    "type": "scenario",
+    "ident": "mansion_horde",
+    "name": "Surrounded Mansion",
+    "points": 0,
+    "description": "You though you would be safe in the lap of luxury at a secluded mansion, but somehow the dead found have found you.",
+    "allowed_locs": [ "mansion" ],
+    "start_name": "Surrounded mansion",
+    "professions": [ "bionic_bodyguard", "maid", "security", "chef", "groundskeeper", "bionic_thief", "musician", "politician" ]
   },
   {
     "type": "scenario",

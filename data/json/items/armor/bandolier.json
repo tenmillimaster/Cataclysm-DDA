@@ -86,6 +86,34 @@
     "flags": [ "WATER_FRIENDLY", "OVERSIZE", "BELTED" ]
   },
   {
+    "id": "waist_bandolier_grenade",
+    "type": "ARMOR",
+    "name": "waist 40mm bandolier",
+    "description": "A nylon bandolier strapped around the torso for keeping grenade rounds close to hand.  It's probably safer for everyone if you used the velcro flaps and covered their primers.  Activate to wear it on the waist.",
+    "weight": "200 g",
+    "volume": "1 L",
+    "price": 3900,
+    "price_postapoc": 6900,
+    "material": [ "plastic", "cotton" ],
+    "symbol": "[",
+    "color": "dark_gray",
+    "covers": [ "TORSO" ],
+    "coverage": 12,
+    "encumbrance": 3,
+    "material_thickness": 1,
+    "use_action": [ {"type": "transform", "msg": "You buckle the %s over your shoulder.", "target": "torso_bandolier_grenade", "menu_text": "Switch"}, { "type": "bandolier", "capacity": 12, "ammo": [ "40mm" ], "draw_cost": 40, "menu_text": "stow/draw rounds" } ],
+    "flags": [ "WATER_FRIENDLY", "OVERSIZE", "BELTED" ]
+  },
+  {
+    "id": "torso_bandolier_grenade",
+    "type": "ARMOR",
+    "name": "crossbody 40mm bandolier",
+    "description": "A nylon bandolier strapped around the waist for keeping grenade rounds close to hand.  It's probably safer for everyone if you used the velcro flaps and covered their primers.  Activate to wear it on the torso.",
+    "copy-from": "waist_bandolier_grenade",
+    "use_action": [ {"type": "transform", "msg": "You buckle the %s across your waist.", "target": "waist_bandolier_grenade", "menu_text": "Switch"}, { "type": "bandolier", "capacity": 12, "ammo": [ "40mm" ], "draw_cost": 40, "menu_text": "stow/draw rounds" } ],
+    "flags": [ "WATER_FRIENDLY", "OVERSIZE", "WAIST" ]
+  },
+  {
     "id": "flintlock_pouch",
     "type": "ARMOR",
     "name": "paper cartridge pouch",
