@@ -1,7 +1,6 @@
 #include "player_activity.h"
 
 #include <algorithm>
-#include <iterator>
 
 #include "activity_handlers.h"
 #include "activity_type.h"
@@ -35,14 +34,14 @@ std::string player_activity::get_stop_phrase() const
     return type->stop_phrase();
 }
 
-std::string player_activity::get_verb() const
+const translation &player_activity::get_verb() const
 {
     return type->verb();
 }
 
 int player_activity::get_value( size_t index, int def ) const
 {
-    return ( index < values.size() ) ? values[index] : def;
+    return index < values.size() ? values[index] : def;
 }
 
 bool player_activity::is_suspendable() const
@@ -50,9 +49,49 @@ bool player_activity::is_suspendable() const
     return type->suspendable();
 }
 
+bool player_activity::is_multi_type() const
+{
+    return type->multi_activity();
+}
+
 std::string player_activity::get_str_value( size_t index, const std::string &def ) const
 {
-    return ( index < str_values.size() ) ? str_values[index] : def;
+    return index < str_values.size() ? str_values[index] : def;
+}
+
+cata::optional<std::string> player_activity::get_progress_message() const
+{
+    if( type == activity_id( "ACT_NULL" ) || get_verb().empty() ) {
+        return cata::optional<std::string>();
+    }
+
+    std::string extra_info;
+    if( type == activity_id( "ACT_CRAFT" ) ) {
+        if( const item *craft = targets.front().get_item() ) {
+            extra_info = craft->tname();
+        }
+    } else if( moves_total > 0 ) {
+        const int percentage = ( ( moves_total - moves_left ) * 100 ) / moves_total;
+
+        if( type == activity_id( "ACT_BURROW" ) ||
+            type == activity_id( "ACT_HACKSAW" ) ||
+            type == activity_id( "ACT_JACKHAMMER" ) ||
+            type == activity_id( "ACT_PICKAXE" ) ||
+            type == activity_id( "ACT_DISASSEMBLE" ) ||
+            type == activity_id( "ACT_FILL_PIT" ) ||
+            type == activity_id( "ACT_DIG" ) ||
+            type == activity_id( "ACT_DIG_CHANNEL" ) ||
+            type == activity_id( "ACT_CHOP_TREE" ) ||
+            type == activity_id( "ACT_CHOP_LOGS" ) ||
+            type == activity_id( "ACT_CHOP_PLANKS" )
+          ) {
+            extra_info = string_format( "%d%%", percentage );
+        }
+    }
+
+    return extra_info.empty() ? string_format( _( "%s…" ),
+            get_verb().translated() ) : string_format( _( "%s: %s" ),
+                    get_verb().translated(), extra_info );
 }
 
 void player_activity::do_turn( player &p )
@@ -73,10 +112,21 @@ void player_activity::do_turn( player &p )
             moves_left = 0;
         }
     }
-
+    int previous_stamina = p.stamina;
     // This might finish the activity (set it to null)
     type->call_do_turn( this, &p );
 
+    // Activities should never excessively drain stamina.
+    if( p.stamina < previous_stamina && p.stamina < p.get_stamina_max() / 3 ) {
+        if( one_in( 50 ) ) {
+            p.add_msg_if_player( _( "You pause for a moment to catch your breath." ) );
+        }
+        auto_resume = true;
+        player_activity new_act( activity_id( "ACT_WAIT_STAMINA" ), to_moves<int>( 1_minutes ) );
+        new_act.values.push_back( 200 + p.get_stamina_max() / 3 );
+        p.assign_activity( new_act );
+        return;
+    }
     if( *this && type->rooted() ) {
         p.rooted();
         p.pause();
@@ -85,7 +135,7 @@ void player_activity::do_turn( player &p )
     if( *this && moves_left <= 0 ) {
         // Note: For some activities "finish" is a misnomer; that's why we explicitly check if the
         // type is ACT_NULL below.
-        if( !( type->call_finish( this, &p ) ) ) {
+        if( !type->call_finish( this, &p ) ) {
             // "Finish" is never a misnomer for any activity without a finish function
             set_to_null();
         }

@@ -13,10 +13,19 @@ The id member should be the unique id of the type. It can be any string, by conv
 
 Monster types support the following properties (mandatory, except if noted otherwise):
 
-## "name", "name_plural"
-(string)
+## "name"
+(string or object)
 
-Name (singular) displayed in-game, and optional the plural name, defaults to singular name + "s".
+```JSON
+"name": "cow"
+```
+
+```JSON
+"name": { "ctxt": "fish", "str": "pike", "str_pl": "pikes" }
+```
+
+Name displayed in-game, and optionally the plural name and a translation context.
+If the plural name is not specified, it defaults to singular name + "s".
 
 ## "description"
 (string)
@@ -250,13 +259,40 @@ Example:
 The upgrades object may have the following members:
 
 ### "half_life"
-TODO: describe this.
+(int)
+Time in which half of the monsters upgrade according to an approximated exponential progression. It is scaled with the evolution scaling factor which defaults to 4 days.
 
 ### "into_group"
-TODO: describe this.
+(string, optional)
+The upgraded monster's type is taken from the specified group. The cost in these groups is for an upgrade in the spawn process (related to the rare "replace_monster_group" and "new_monster_group_id" attributes of spawning groups).
 
 ### "into"
-TODO: describe this.
+(string, optional)
+The upgraded monster's type.
+
+## "reproduction"
+(dictionary, optional)
+The monster's reproduction cycle, if any. Supports:
+
+### "baby_monster"
+(string, optional)
+the id of the monster spawned on reproduction for monsters who give live births. You must declare either this or `baby_egg` for reproduction to work.
+
+### "baby_egg"
+(string, optional)
+The id of the egg type to spawn for egg-laying monsters. You must declare either this or "baby_monster" for reproduction to work.
+
+### "baby_count"
+(int)
+Number of new creatures or eggs to spawn on reproduction.
+
+### "baby_timer"
+(int)
+Number of days between reproduction events.
+
+## "baby_flags"
+(Array, optional)
+Designate seasons during which this monster is capable of reproduction. ie: `[ "SPRING", "SUMMER" ]`
 
 ## "special_when_hit"
 (array, optional)

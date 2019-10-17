@@ -2,6 +2,7 @@
 #ifndef ITEM_H
 #define ITEM_H
 
+#include <stdint.h>
 #include <climits>
 #include <list>
 #include <map>
@@ -15,22 +16,27 @@
 
 #include "calendar.h"
 #include "cata_utility.h"
+#include "craft_command.h"
 #include "debug.h"
 #include "enums.h"
-#include "faction.h"
 #include "flat_set.h"
 #include "io_tags.h"
 #include "item_location.h"
+#include "optional.h"
+#include "relic.h"
 #include "requirements.h"
+#include "safe_reference.h"
 #include "string_id.h"
 #include "type_id.h"
 #include "units.h"
 #include "visitable.h"
 #include "gun_mode.h"
+#include "point.h"
 
 class item;
 class material_type;
 struct mtype;
+class faction;
 
 namespace cata
 {
@@ -52,6 +58,7 @@ struct itype;
 struct islot_comestible;
 
 using bodytype_id = std::string;
+using faction_id = string_id<faction>;
 struct islot_armor;
 struct use_function;
 class item_category;
@@ -70,8 +77,9 @@ struct damage_unit;
 class map;
 
 enum damage_type : int;
+enum clothing_mod_type : int;
 
-const std::string &rad_badge_color( int rad );
+std::string rad_badge_color( int rad );
 
 struct light_emission {
     unsigned short luminance;
@@ -184,6 +192,10 @@ class item : public visitable<item>
         /** For constructing in-progress crafts */
         item( const recipe *rec, int qty, std::list<item> items, std::vector<item_comp> selections );
 
+        /** Return a pointer-like type that's automatically invalidated if this
+         * item is destroyed or assigned-to */
+        safe_reference<item> get_safe_reference();
+
         /**
          * Filter converting this instance to another type preserving all other aspects
          * @param new_type the type id to convert to
@@ -202,6 +214,17 @@ class item : public visitable<item>
 
         /** Filter converting instance to active state */
         item &activate();
+
+        /**
+         * Add or remove energy from a battery.
+         * If adding the specified energy quantity would go over the battery's capacity fill
+         * the battery and ignore the remainder.
+         * If adding the specified energy quantity would reduce the battery's charge level
+         * below 0 do nothing and return how far below 0 it would have gone.
+         * @param qty energy quantity to add (can be negative)
+         * @return 0 valued energy quantity on success
+         */
+        units::energy set_energy( const units::energy &qty );
 
         /**
          * Filter setting the ammo for this instance
@@ -262,7 +285,7 @@ class item : public visitable<item>
          * null pointer.
          * TODO: change this to take a reference instead.
          */
-        void set_mtype( const mtype *corpse );
+        void set_mtype( const mtype *m );
         /**
          * Whether this is a corpse item. Corpses always have valid monster type (@ref corpse)
          * associated (@ref get_mtype return a non-null pointer) and have been created
@@ -302,7 +325,8 @@ class item : public visitable<item>
          */
         std::string tname( unsigned int quantity = 1, bool with_prefix = true,
                            unsigned int truncate = 0 ) const;
-        std::string display_money( unsigned int quantity, unsigned int charge ) const;
+        std::string display_money( unsigned int quantity, unsigned int total,
+                                   cata::optional<unsigned int> selected = cata::nullopt ) const;
         /**
          * Returns the item name and the charges or contained charges (if the item can have
          * charges at all). Calls @ref tname with given quantity and with_prefix being true.
@@ -328,7 +352,7 @@ class item : public visitable<item>
          * @param dump The properties (encapsulated into @ref iteminfo) are added to this vector,
          * the vector can be used to compare them to properties of another item.
          */
-        std::string info( bool showtext, std::vector<iteminfo> &dump ) const;
+        std::string info( bool showtext, std::vector<iteminfo> &iteminfo ) const;
 
         /**
         * Return all the information about the item and its type, and dump to vector.
@@ -341,7 +365,7 @@ class item : public visitable<item>
         * the vector can be used to compare them to properties of another item.
         * @param batch The batch crafting number to multiply data by
         */
-        std::string info( bool showtext, std::vector<iteminfo> &dump, int batch ) const;
+        std::string info( bool showtext, std::vector<iteminfo> &iteminfo, int batch ) const;
 
         /**
         * Return all the information about the item and its type, and dump to vector.
@@ -354,7 +378,7 @@ class item : public visitable<item>
         * the vector can be used to compare them to properties of another item.
         * @param batch The batch crafting number to multiply data by
         */
-        std::string info( std::vector<iteminfo> &dump, const iteminfo_query *parts = nullptr,
+        std::string info( std::vector<iteminfo> &info, const iteminfo_query *parts = nullptr,
                           int batch = 1 ) const;
 
         /**
@@ -362,9 +386,9 @@ class item : public visitable<item>
          * DO apply them to @ref fire_data argument, though.
          * @return Amount of "burn" that would be applied to the item.
          */
-        float simulate_burn( fire_data &bd ) const;
+        float simulate_burn( fire_data &frd ) const;
         /** Burns the item. Returns true if the item was destroyed. */
-        bool burn( fire_data &bd );
+        bool burn( fire_data &frd );
 
         // Returns the category of this item.
         const item_category &get_category() const;
@@ -413,11 +437,9 @@ class item : public visitable<item>
         void io( Archive & );
         using archive_type_tag = io::object_archive_tag;
 
-        void serialize( JsonOut &jsout ) const;
+        void serialize( JsonOut &json ) const;
         void deserialize( JsonIn &jsin );
 
-        // Legacy function, don't use.
-        void load_info( const std::string &data );
         const std::string &symbol() const;
         /**
          * Returns the monetary value of an item.
@@ -426,6 +448,14 @@ class item : public visitable<item>
          */
         int price( bool practical ) const;
 
+        /**
+         * Whether two items should stack when displayed in a inventory menu.
+         * This is different from stacks_with, when two previously non-stackable
+         * items are now stackable and mergeable because, for example, they
+         * reaches the same temperature. This is necessary to avoid misleading
+         * stacks like "3 items-count-by-charge (5)".
+         */
+        bool display_stacked_with( const item &rhs, bool check_components = false ) const;
         bool stacks_with( const item &rhs, bool check_components = false ) const;
         /**
          * Merge charges of the other item into this item.
@@ -667,7 +697,7 @@ class item : public visitable<item>
          * is outside the reality bubble.
          * @param smoking_duration
          */
-        void calc_rot_while_processing( time_duration smoking_duration );
+        void calc_rot_while_processing( time_duration processing_duration );
 
         /**
          * Update temperature for things like food
@@ -680,7 +710,7 @@ class item : public visitable<item>
          * @param flag to specify special temperature situations
          */
         void process_temperature_rot( float insulation, const tripoint &pos, player *carrier,
-                                      const temperature_flag flag = temperature_flag::TEMP_NORMAL );
+                                      temperature_flag flag = temperature_flag::TEMP_NORMAL );
 
         /** Set the item to HOT */
         void heat_up();
@@ -692,7 +722,7 @@ class item : public visitable<item>
         void set_item_temperature( float new_temperature );
 
         /** Sets the item to new temperature and energy based new specific energy (J/g)*/
-        void set_item_specific_energy( const float specific_energy );
+        void set_item_specific_energy( float specific_energy );
 
         /** reset the last_temp_check used when crafting new items and the like */
         void reset_temp_check();
@@ -826,7 +856,7 @@ class item : public visitable<item>
         /**
          * If contents nonempty, return true if item phase is same, else false
          */
-        bool contents_made_of( const phase_id phase ) const;
+        bool contents_made_of( phase_id phase ) const;
         /**
          * Are we solid, liquid, gas, plasma?
          */
@@ -936,7 +966,7 @@ class item : public visitable<item>
          * @param dt type of damage which may be passed to @ref on_damage callback
          * @return whether item should be destroyed
          */
-        bool inc_damage( const damage_type dt );
+        bool inc_damage( damage_type dt );
         /// same as other inc_damage, but uses @ref DT_NULL as damage type.
         bool inc_damage();
 
@@ -986,17 +1016,17 @@ class item : public visitable<item>
          * Returns false if the item is not destroyed.
          */
         bool process( player *carrier, const tripoint &pos, bool activate, float insulation = 1,
-                      const temperature_flag flag = temperature_flag::TEMP_NORMAL );
+                      temperature_flag flag = temperature_flag::TEMP_NORMAL );
 
         /**
          * Gets the point (vehicle tile) the cable is connected to.
          * Returns nothing if not connected to anything.
          */
-        cata::optional<tripoint> get_cable_target( player *carrier, const tripoint &pos ) const;
+        cata::optional<tripoint> get_cable_target( player *p, const tripoint &pos ) const;
         /**
          * Helper to bring a cable back to its initial state.
          */
-        void reset_cable( player *carrier );
+        void reset_cable( player *p );
 
         /**
          * Whether the item should be processed (by calling @ref process).
@@ -1013,6 +1043,7 @@ class item : public visitable<item>
          * @param pos The location of the artifact (should be the player location if carried).
          */
         void process_artifact( player *carrier, const tripoint &pos );
+        void process_relic( Character *carrier );
 
         bool destroyed_at_zero_charges() const;
         // Most of the is_whatever() functions call the same function in our itype
@@ -1025,6 +1056,7 @@ class item : public visitable<item>
         bool is_medication() const;            // Is it a medication that only pretends to be food?
         bool is_bionic() const;
         bool is_magazine() const;
+        bool is_battery() const;
         bool is_ammo_belt() const;
         bool is_bandolier() const;
         bool is_holster() const;
@@ -1042,6 +1074,7 @@ class item : public visitable<item>
         bool is_tool() const;
         bool is_transformable() const;
         bool is_artifact() const;
+        bool is_relic() const;
         bool is_bucket() const;
         bool is_bucket_nonempty() const;
 
@@ -1057,6 +1090,10 @@ class item : public visitable<item>
         bool is_unarmed_weapon() const; //Returns true if the item should be considered unarmed
 
         bool has_temperature() const;
+
+        /** Returns true if the item is A: is SOLID and if it B: is of type LIQUID */
+        bool is_frozen_liquid() const;
+
         float get_specific_heat_liquid() const;
         float get_specific_heat_solid() const;
         float get_latent_heat() const;
@@ -1237,6 +1274,7 @@ class item : public visitable<item>
          */
         /*@{*/
         void set_var( const std::string &name, int value );
+        void set_var( const std::string &name, long long value );
         // Acceptable to use long as part of overload set
         // NOLINTNEXTLINE(cata-no-long)
         void set_var( const std::string &name, long value );
@@ -1280,6 +1318,9 @@ class item : public visitable<item>
         /** Removes all item specific flags. */
         void unset_flags();
         /*@}*/
+
+        /**Does this item have the specified fault*/
+        bool has_fault( fault_id fault ) const;
 
         /**
          * @name Item properties
@@ -1436,6 +1477,16 @@ class item : public visitable<item>
          */
         units::volume get_storage() const;
         /**
+         * Returns the weight capacity modifier (@ref islot_armor::weight_capacity_modifier) that this item provides when worn.
+         * For non-armor it returns 1. The modifier is multiplied with the weight capacity of the character that wears the item.
+         */
+        float get_weight_capacity_modifier() const;
+        /**
+         * Returns the weight capacity bonus (@ref islot_armor::weight_capacity_modifier) that this item provides when worn.
+         * For non-armor it returns 0. The bonus is added to the total weight capacity of the character that wears the item.
+         */
+        units::mass get_weight_capacity_bonus() const;
+        /**
          * Returns the resistance to environmental effects (@ref islot_armor::env_resist) that this
          * item provides when worn. See @ref player::get_env_resist. Higher values are better.
          * For non-armor it returns 0.
@@ -1551,6 +1602,9 @@ class item : public visitable<item>
          *  @note an item can be both a gun and melee weapon concurrently
          */
         bool is_gun() const;
+
+        /** Quantity of energy currently loaded in tool or battery */
+        units::energy energy_remaining() const;
 
         /** Quantity of ammunition currently loaded in tool, gun or auxiliary gunmod */
         int ammo_remaining() const;
@@ -1701,7 +1755,7 @@ class item : public visitable<item>
          * @param u The player that uses the weapon, their strength might affect this.
          * It's optional and can be null.
          */
-        int gun_range( const player *u ) const;
+        int gun_range( const player *p ) const;
         /**
          * Summed range value of a gun, including values from mods. Returns 0 on non-gun items.
          */
@@ -1810,7 +1864,7 @@ class item : public visitable<item>
         /**
          * Returns the item type of the given identifier. Never returns null.
          */
-        static const itype *find_type( const itype_id &id );
+        static const itype *find_type( const itype_id &type );
         /**
          * Whether the item is counted by charges, this is a static wrapper
          * around @ref count_by_charges, that does not need an items instance.
@@ -1842,8 +1896,11 @@ class item : public visitable<item>
         /** Puts the skill in context of the item */
         skill_id contextualize_skill( const skill_id &id ) const;
 
-        /* remove a monster from this item, optionally spawning the monster */
-        int release_monster( const tripoint &target, bool spawn = true );
+        /* Remove a monster from this item and spawn it.
+         * See @game::place_critter for meaning of @p target and @p pos.
+         * @return Whether the monster has been spawned (may fail if no space available).
+         */
+        bool release_monster( const tripoint &target, int radius = 0 );
         /* add the monster at target to this item, despawning it */
         int contain_monster( const tripoint &target );
 
@@ -1851,35 +1908,26 @@ class item : public visitable<item>
         void set_age( const time_duration &age );
         time_point birthday() const;
         void set_birthday( const time_point &bday );
-        void handle_pickup_ownership( Character &p );
+        void handle_pickup_ownership( Character &c );
         int get_gun_ups_drain() const;
-        inline void set_old_owner( const faction *temp_owner ) {
+        inline void set_old_owner( const faction_id temp_owner ) {
             old_owner = temp_owner;
         }
         inline void remove_old_owner() {
-            old_owner = nullptr;
+            old_owner = faction_id::NULL_ID();
         }
-        inline void set_owner( faction *new_owner ) {
+        inline void set_owner( const faction_id new_owner ) {
             owner = new_owner;
         }
+        void set_owner( const Character &c );
         inline void remove_owner() {
-            owner = nullptr;
+            owner = faction_id::NULL_ID();
         }
-        inline const faction *get_owner() const {
-            if( owner ) {
-                return owner;
-            }
-            return nullptr;
-        }
-        inline const faction *get_old_owner() const {
-            if( old_owner ) {
-                return old_owner;
-            }
-            return nullptr;
-        }
-        inline bool has_owner() const {
-            return owner;
-        }
+        faction_id get_owner() const;
+        faction_id get_old_owner() const;
+        bool is_owned_by( const Character &c, bool available_to_take = false ) const;
+        bool is_old_owner( const Character &c, bool available_to_take = false ) const;
+        std::string get_owner_name() const;
         int get_min_str() const;
 
         const cata::optional<islot_comestible> &get_comestible() const;
@@ -1921,6 +1969,18 @@ class item : public visitable<item>
          */
         requirement_data get_continue_reqs() const;
 
+        void set_tools_to_continue( bool value );
+        bool has_tools_to_continue() const;
+        void set_cached_tool_selections( const std::vector<comp_selection<tool_comp>> &selections );
+        const std::vector<comp_selection<tool_comp>> &get_cached_tool_selections() const;
+
+        std::vector<enchantment> get_enchantments() const;
+        double calculate_by_enchantment( const Character &owner, double modify, enchantment::mod value,
+                                         bool round_value = false ) const;
+        // calculates the enchantment value as if this item were wielded.
+        double calculate_by_enchantment_wield( double modify, enchantment::mod value,
+                                               bool round_value = false ) const;
+
     private:
         /**
          * Calculate the thermal energy and temperature change of the item
@@ -1928,7 +1988,7 @@ class item : public visitable<item>
          * @param insulation Amount of insulation item has
          * @param time time point which the item is processed to
          */
-        void calc_temp( const int temp, const float insulation, const time_point &time );
+        void calc_temp( int temp, float insulation, const time_point &time );
 
         /**
          * Get the thermal energy of the item in Joules.
@@ -1936,7 +1996,7 @@ class item : public visitable<item>
         float get_item_thermal_energy();
 
         /** Calculates item specific energy (J/g) from temperature (K)*/
-        float get_specific_energy_from_temperature( const float new_temperature );
+        float get_specific_energy_from_temperature( float new_temperature );
 
         /** Helper for checking reloadability. **/
         bool is_reloadable_helper( const itype_id &ammo, bool now ) const;
@@ -1969,6 +2029,7 @@ class item : public visitable<item>
         bool process_fake_smoke( player *carrier, const tripoint &pos );
         bool process_fake_mill( player *carrier, const tripoint &pos );
         bool process_cable( player *carrier, const tripoint &pos );
+        bool process_UPS( player *carrier, const tripoint &pos );
         bool process_blackpowder_fouling( player *carrier );
         bool process_tool( player *carrier, const tripoint &pos );
 
@@ -1983,6 +2044,7 @@ class item : public visitable<item>
         cata::flat_set<std::string> item_tags; // generic item specific flags
 
     private:
+        safe_reference_anchor anchor;
         const itype *curammo = nullptr;
         std::map<std::string, std::string> item_vars;
         const mtype *corpse = nullptr;
@@ -1993,22 +2055,26 @@ class item : public visitable<item>
         const recipe *making = nullptr;
         int next_failure_point = -1;
         std::vector<item_comp> comps_used;
-
+        // If the crafter has insufficient tools to continue to the next 5% progress step
+        bool tools_to_continue = false;
+        std::vector<comp_selection<tool_comp>> cached_tool_selections;
+        // any relic data specific to this item
+        cata::optional<relic> relic_data;
     public:
         int charges;
+        units::energy energy;      // Amount of energy currently stored in a battery
 
-        // The number of charges a recipe creates.  Used for comestible consumption.
-        int recipe_charges = 1;
-        int burnt = 0;           // How badly we're burnt
-        int poison = 0;          // How badly poisoned is it?
-        int frequency = 0;       // Radio frequency
-        int note = 0;            // Associated dynamic text snippet.
-        int irradiation = 0;      // Tracks radiation dosage.
-        int item_counter = 0; // generic counter to be used with item flags
+        int recipe_charges = 1;    // The number of charges a recipe creates.
+        int burnt = 0;             // How badly we're burnt
+        int poison = 0;            // How badly poisoned is it?
+        int frequency = 0;         // Radio frequency
+        int note = 0;              // Associated dynamic text snippet.
+        int irradiation = 0;       // Tracks radiation dosage.
+        int item_counter = 0;      // generic counter to be used with item flags
         int specific_energy = -10; // Specific energy (0.00001 J/g). Negative value for unprocessed.
-        int temperature = 0; // Temperature of the item (in 0.00001 K).
-        int mission_id = -1; // Refers to a mission in game's master list
-        int player_id = -1; // Only give a mission to the right player!
+        int temperature = 0;       // Temperature of the item (in 0.00001 K).
+        int mission_id = -1;       // Refers to a mission in game's master list
+        int player_id = -1;        // Only give a mission to the right player!
 
     private:
         /**
@@ -2018,9 +2084,9 @@ class item : public visitable<item>
          */
         time_duration rot = 0_turns;
         /** Time when the rot calculation was last performed. */
-        time_point last_rot_check = calendar::time_of_cataclysm;
+        time_point last_rot_check = calendar::turn_zero;
         /** the last time the temperature was updated for this item */
-        time_point last_temp_check = calendar::time_of_cataclysm;
+        time_point last_temp_check = calendar::turn_zero;
         /// The time the item was created.
         time_point bday;
         /**
@@ -2031,9 +2097,9 @@ class item : public visitable<item>
          */
         phase_id current_phase = static_cast<phase_id>( 0 );
         // The faction that owns this item.
-        const faction *owner = nullptr;
+        faction_id owner = faction_id::NULL_ID();
         // The faction that previously owned this item
-        const faction *old_owner = nullptr;
+        faction_id old_owner = faction_id::NULL_ID();
         int damage_ = 0;
         light_emission light = nolight;
 
@@ -2042,7 +2108,10 @@ class item : public visitable<item>
         bool active = false; // If true, it has active effects to be processed
         bool is_favorite = false;
 
-        void set_favorite( const bool favorite );
+        void set_favorite( bool favorite );
+        bool has_clothing_mod() const;
+        float get_clothing_mod_val( clothing_mod_type type ) const;
+        void update_clothing_mod_val();
 };
 
 bool item_compare_by_charges( const item &left, const item &right );

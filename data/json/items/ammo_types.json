@@ -31,6 +31,12 @@
   },
   {
     "type": "ammunition_type",
+    "id": "barb",
+    "name": "barb",
+    "default": "barb_paralysis"
+  },
+  {
+    "type": "ammunition_type",
     "id": "BB",
     "name": "BBs",
     "default": "bb"
@@ -64,6 +70,12 @@
     "id": "shot",
     "name": "shot",
     "default": "shot_00"
+  },
+  {
+    "type": "ammunition_type",
+    "id": "shotpaper",
+    "name": "20ga percussion",
+    "default": "shot_paper_00"
   },
   {
     "type": "ammunition_type",
@@ -319,12 +331,6 @@
   },
   {
     "type": "ammunition_type",
-    "id": "fusion",
-    "name": "fusion cell",
-    "default": "laser_pack"
-  },
-  {
-    "type": "ammunition_type",
     "id": "12mm",
     "name": "12mm slugs",
     "default": "12mm"
@@ -397,6 +403,12 @@
   },
   {
     "type": "ammunition_type",
+    "id": "cac2powder",
+    "name": "powdered calcium carbide premix",
+    "default": "cac2powder"
+  },
+  {
+    "type": "ammunition_type",
     "id": "metal_rail",
     "name": "ferrous rail projectile",
     "default": "rebar_rail"
@@ -434,7 +446,7 @@
   {
     "type": "ammunition_type",
     "id": "RPG-7",
-    "name": "93mm RPG-7",
+    "name": "RPG-7 rocket",
     "default": "RPG-7_ammo"
   },
   {
@@ -487,6 +499,12 @@
   },
   {
     "type": "ammunition_type",
+    "id": "papershot",
+    "name": "20ga percussion",
+    "default": "nail"
+  },
+  {
+    "type": "ammunition_type",
     "id": "36paper",
     "name": ".36 cap & ball",
     "default": "36navy"
@@ -523,9 +541,21 @@
   },
   {
     "type": "ammunition_type",
+    "id": "atgm",
+    "name": "152mm anti-tank guided missile",
+    "default": "atgm_heat"
+  },
+  {
+    "type": "ammunition_type",
     "id": "unfinished_char",
     "name": "semi-charred fuel",
     "default": "unfinished_charcoal"
+  },
+  {
+    "type": "ammunition_type",
+    "id": "unfinished_cac2",
+    "name": "partially burned calcium carbide",
+    "default": "unfinished_cac2"
   },
   {
     "type": "ammunition_type",
@@ -562,5 +592,17 @@
     "name": "hexamine",
     "default": "chem_hexamine",
     "type": "ammunition_type"
+  },
+  {
+    "id": "oxygen",
+    "name": "oxygen",
+    "default": "oxygen",
+    "type": "ammunition_type"
+  },
+  {
+    "type": "ammunition_type",
+    "id": "300blk",
+    "name": ".300 AAC Blackout",
+    "default": "300blk"
   }
 ]

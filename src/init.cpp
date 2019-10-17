@@ -18,14 +18,15 @@
 #include "bionics.h"
 #include "construction.h"
 #include "crafting_gui.h"
+#include "creature.h"
 #include "debug.h"
 #include "dialogue.h"
 #include "effect.h"
 #include "emit.h"
+#include "event_statistics.h"
 #include "faction.h"
 #include "fault.h"
 #include "filesystem.h"
-#include "field_type.h"
 #include "flag.h"
 #include "gates.h"
 #include "harvest.h"
@@ -40,6 +41,7 @@
 #include "material.h"
 #include "mission.h"
 #include "magic.h"
+#include "magic_ter_furn_transform.h"
 #include "mod_tileset.h"
 #include "monfaction.h"
 #include "mongroup.h"
@@ -76,6 +78,9 @@
 #include "bodypart.h"
 #include "translations.h"
 #include "type_id.h"
+#include "construction_category.h"
+#include "overmap.h"
+#include "clothing_mod.h"
 
 DynamicDataLoader::DynamicDataLoader()
 {
@@ -191,6 +196,7 @@ void DynamicDataLoader::initialize()
     add( "profession", &profession::load_profession );
     add( "profession_item_substitutions", &profession::load_item_substitutions );
     add( "skill", &Skill::load_skill );
+    add( "skill_display_type", &SkillDisplayType::load );
     add( "dream", &dream::load );
     add( "mutation_category", &mutation_category_trait::load );
     add( "mutation_type", &load_mutation_type );
@@ -205,6 +211,8 @@ void DynamicDataLoader::initialize()
     add( "scenario", &scenario::load_scenario );
     add( "start_location", &start_location::load_location );
     add( "skill_boost", &skill_boost::load_boost );
+    add( "enchantment", &enchantment::load_enchantment );
+    add( "hit_range", &Creature::load_hit_range );
 
     // json/colors.json would be listed here, but it's loaded before the others (see init_colors())
     // Non Static Function Access
@@ -277,6 +285,9 @@ void DynamicDataLoader::initialize()
     add( "MAGAZINE", []( JsonObject & jo, const std::string & src ) {
         item_controller->load_magazine( jo, src );
     } );
+    add( "BATTERY", []( JsonObject & jo, const std::string & src ) {
+        item_controller->load_battery( jo, src );
+    } );
     add( "GENERIC", []( JsonObject & jo, const std::string & src ) {
         item_controller->load_generic( jo, src );
     } );
@@ -308,6 +319,7 @@ void DynamicDataLoader::initialize()
     add( "martial_art", &load_martial_art );
     add( "effect_type", &load_effect_type );
     add( "tutorial_messages", &load_tutorial_messages );
+    add( "obsolete_terrain", &overmap::load_obsolete_terrains );
     add( "overmap_terrain", &overmap_terrains::load );
     add( "construction_category", &construction_categories::load );
     add( "construction", &load_construction );
@@ -364,6 +376,11 @@ void DynamicDataLoader::initialize()
     add( "anatomy", &anatomy::load_anatomy );
     add( "morale_type", &morale_type_data::load_type );
     add( "SPELL", &spell_type::load_spell );
+    add( "clothing_mod", &clothing_mods::load );
+    add( "ter_furn_transform", &ter_furn_transform::load_transform );
+    add( "event_transformation", &event_transformation::load_transformation );
+    add( "event_statistic", &event_statistic::load_statistic );
+    add( "score", &score::load_score );
 #if defined(TILES)
     add( "mod_tileset", &load_mod_tileset );
 #else
@@ -505,6 +522,12 @@ void DynamicDataLoader::unload_data()
     npc_template::reset();
     anatomy::reset();
     reset_mod_tileset();
+    VehicleGroup::reset();
+    VehiclePlacement::reset();
+    VehicleSpawn::reset();
+    event_transformation::reset();
+    event_statistic::reset();
+    score::reset();
 
     // TODO:
     //    Name::clear();
@@ -527,6 +550,7 @@ void DynamicDataLoader::finalize_loaded_data( loading_ui &ui )
     const std::vector<named_entry> entries = {{
             { _( "Body parts" ), &body_part_struct::finalize_all },
             { _( "Field types" ), &field_types::finalize_all },
+            { _( "Emissions" ), &emit::finalize },
             {
                 _( "Items" ), []()
                 {
@@ -634,6 +658,7 @@ void DynamicDataLoader::check_consistency( loading_ui &ui )
             { _( "Overmap terrain" ), &overmap_terrains::check_consistency },
             { _( "Overmap locations" ), &overmap_locations::check_consistency },
             { _( "Overmap specials" ), &overmap_specials::check_consistency },
+            { _( "Map extras" ), &MapExtras::check_consistency },
             { _( "Ammunition types" ), &ammunition_type::check_consistency },
             { _( "Traps" ), &trap::check_consistency },
             { _( "Bionics" ), &check_bionics },
@@ -651,7 +676,10 @@ void DynamicDataLoader::check_consistency( loading_ui &ui )
             { _( "NPC templates" ), &npc_template::check_consistency },
             { _( "Body parts" ), &body_part_struct::check_consistency },
             { _( "Anatomies" ), &anatomy::check_consistency },
-            { _( "Spells" ), &spell_type::check_consistency }
+            { _( "Spells" ), &spell_type::check_consistency },
+            { _( "Transformations" ), &event_transformation::check_consistency },
+            { _( "Statistics" ), &event_statistic::check_consistency },
+            { _( "Scores" ), &score::check_consistency }
         }
     };
 

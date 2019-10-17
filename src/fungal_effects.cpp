@@ -1,6 +1,9 @@
 #include "fungal_effects.h"
 
 #include <memory>
+#include <algorithm>
+#include <ostream>
+#include <string>
 
 #include "avatar.h"
 #include "creature.h"
@@ -21,6 +24,10 @@
 #include "rng.h"
 #include "translations.h"
 #include "type_id.h"
+#include "colony.h"
+#include "debug.h"
+#include "point.h"
+#include "string_formatter.h"
 
 const mtype_id mon_fungal_blossom( "mon_fungal_blossom" );
 const mtype_id mon_spore( "mon_spore" );
@@ -71,7 +78,7 @@ void fungal_effects::fungalize( const tripoint &p, Creature *origin, double spor
             add_msg( m_warning, _( "You're covered in tiny spores!" ) );
         }
     } else if( gm.num_creatures() < 250 && x_in_y( spore_chance, 1.0 ) ) { // Spawn a spore
-        if( monster *const spore = gm.summon_mon( mon_spore, p ) ) {
+        if( monster *const spore = gm.place_critter_at( mon_spore, p ) ) {
             monster *origin_mon = dynamic_cast<monster *>( origin );
             if( origin_mon != nullptr ) {
                 spore->make_ally( *origin_mon );
@@ -153,8 +160,7 @@ void fungal_effects::spread_fungus_one_tile( const tripoint &p, const int growth
             if( m.get_field_intensity( p, fd_fungal_haze ) != 0 ) {
                 if( x_in_y( growth * 10, 800 ) ) { // young trees are vulnerable
                     m.ter_set( p, t_fungus );
-                    gm.summon_mon( mon_fungal_blossom, p );
-                    if( gm.u.sees( p ) ) {
+                    if( gm.place_critter_at( mon_fungal_blossom, p ) && gm.u.sees( p ) ) {
                         add_msg( m_warning, _( "The young tree blooms forth into a fungal blossom!" ) );
                     }
                 } else if( x_in_y( growth * 10, 400 ) ) {
@@ -170,8 +176,7 @@ void fungal_effects::spread_fungus_one_tile( const tripoint &p, const int growth
             if( m.get_field_intensity( p, fd_fungal_haze ) != 0 ) {
                 if( x_in_y( growth * 10, 100 ) ) {
                     m.ter_set( p, t_fungus );
-                    gm.summon_mon( mon_fungal_blossom, p );
-                    if( gm.u.sees( p ) ) {
+                    if( gm.place_critter_at( mon_fungal_blossom, p ) && gm.u.sees( p ) ) {
                         add_msg( m_warning, _( "The tree blooms forth into a fungal blossom!" ) );
                     }
                 } else if( x_in_y( growth * 10, 600 ) ) {
