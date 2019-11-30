@@ -1,0 +1,27 @@
+[
+  {
+    "type": "AMMO",
+    "id": "rocket_he",
+    "copy-from": "84x246mm_he",
+    "name": "rocket, antipersonnel",
+    "description": "A large anti-personnel rocket for a military rocket launcher.  Designed to be highly effective against personnel.",
+    "material": [ "steel", "powder" ],
+    "volume": "1250 ml",
+    "weight": "3200 g",
+    "ammo_type": "rocket_ammo",
+  },
+  {
+    "type": "AMMO",
+    "id": "rocket_hedp",
+    "copy-from": "84x246mm_hedp",
+    "name": "rocket, antipersonnel",
+    "description": "A High Explosive Dual Purpose anti-materiel rocket for a military rocket launcher.  Designed to be highly effective against vehicles and structures."
+  },
+  {
+    "type": "AMMO",
+    "id": "rocket_smoke",
+    "copy-from": "84x246mm_smoke",
+    "name": "84x246mm smoke rocket",
+    "description": "A 84x246mm smoke marker rrocket for a military rocket launcher.  Commonly used for signaling, target designation, and for screening troop movements."
+  }
+]

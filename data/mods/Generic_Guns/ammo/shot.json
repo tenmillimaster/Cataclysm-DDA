@@ -1,0 +1,50 @@
+[
+  {
+    "id": "shot_00",
+    "type": "AMMO",
+    "copy-from": "shot_00",
+    "name": "shotshell, buckshot"
+  },
+  {
+    "id": "shot_beanbag",
+    "copy-from": "shot_beanbag",
+    "type": "AMMO",
+    "name": "shotshell, beanbag"
+  },
+  {
+    "id": "shot_bird",
+    "copy-from": "shot_bird",
+    "type": "AMMO",
+    "name": "shotshell, birdshot"
+  },
+  {
+    "id": "shot_slug",
+    "copy-from": "shot_slug",
+    "type": "AMMO",
+    "name": "shotshell, slug"
+  },
+  {
+    "id": "reloaded_shot_bird",
+    "copy-from": "reloaded_shot_bird",
+    "type": "AMMO",
+    "name": "shotshell, birdshot (reloaded)"
+  },
+  {
+    "id": "reloaded_shot_00",
+    "copy-from": "reloaded_shot_00",
+    "type": "AMMO",
+    "name": "shotshell, buckshot (reloaded)"
+  },
+  {
+    "id": "reloaded_shot_flechette",
+    "copy-from": "reloaded_shot_flechette",
+    "type": "AMMO",
+    "name": "shotshell, buckshot (reloaded)"
+  },
+  {
+    "id": "reloaded_shot_slug",
+    "copy-from": "reloaded_shot_slug",
+    "type": "AMMO",
+    "name": "shotshell, slug (reloaded)"
+  }
+]
