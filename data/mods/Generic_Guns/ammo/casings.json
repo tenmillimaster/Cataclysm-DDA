@@ -1,0 +1,44 @@
+[
+  {
+    "id": "pistol_tiny_casing",
+    "copy-from": "32_casing",
+    "type": "GENERIC",
+    "name": "tiny pistol casing",
+    "description": "An empty casing from a tiny pistol round."
+  },
+  {
+    "id": "pistol_medium_casing",
+    "copy-from": "9mm_casing",
+    "type": "GENERIC",
+    "name": "medium pistol casing",
+    "description": "An empty casing from a medium pistol round."
+  },
+  {
+    "id": "pistol_magnum_casing",
+    "copy-from": "44_casing",
+    "type": "GENERIC",
+    "name": "magnum pistol casing",
+    "description": "An empty casing from a magnum pistol round."
+  },
+  {
+    "id": "rifle_casing",
+    "copy-from": "308_casing",
+    "type": "GENERIC",
+    "name": "rifle casing",
+    "description": "An empty casing from a rifle round."
+  },
+  {
+    "id": "rifle_huge_casing",
+    "copy-from": "50_casing",
+    "type": "GENERIC",
+    "name": ".32 ACP casing",
+    "description": "An huge casing from an antimaterial rifle round."
+  },
+  {
+    "id": "grenade_casing",
+    "copy-from": "40mm_casing",
+    "type": "GENERIC",
+    "name": "grenade casing",
+    "description": "A gigantic casing from a grenade round."
+  }
+]

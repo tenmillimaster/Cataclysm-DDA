@@ -19,7 +19,7 @@
   {
     "id": "reloaded_rifle_huge_ball",
     "type": "AMMO",
-    "copy-from": "rifle_huge_Ball",
+    "copy-from": "rifle_huge_ball",
     "name": "huge rifle ammo, ball (reloaded)",
     "proportional": { "price": 0.7, "damage": 0.9, "dispersion": 1.1 },
     "extend": { "effects": [ "RECYCLED" ] }
