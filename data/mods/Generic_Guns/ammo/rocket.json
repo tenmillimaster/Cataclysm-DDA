@@ -8,20 +8,20 @@
     "material": [ "steel", "powder" ],
     "volume": "1250 ml",
     "weight": "3200 g",
-    "ammo_type": "rocket_ammo",
+    "ammo_type": "ammo_rocket"
   },
   {
     "type": "AMMO",
     "id": "rocket_hedp",
     "copy-from": "84x246mm_hedp",
     "name": "rocket, antipersonnel",
-    "description": "A High Explosive Dual Purpose anti-materiel rocket for a military rocket launcher.  Designed to be highly effective against vehicles and structures."
+    "description": "An anti-tank rocket with a high explosive dual purpose warhead for a military rocket launcher.  Designed to be highly effective against vehicles and structures, and retains some effectiveness against personnel."
   },
   {
     "type": "AMMO",
     "id": "rocket_smoke",
     "copy-from": "84x246mm_smoke",
     "name": "84x246mm smoke rocket",
-    "description": "A 84x246mm smoke marker rrocket for a military rocket launcher.  Commonly used for signaling, target designation, and for screening troop movements."
+    "description": "A rocket loaded with a smoke warhead for a military rocket launcher.  Commonly used for signaling, target designation, and for screening troop movements."
   }
 ]

@@ -4,7 +4,7 @@
     "copy-from": "40mm_grenade",
     "type": "AMMO",
     "name": "grenade cartridge",
-    "ammo_type": "grenade_ammo",
+    "ammo_type": "ammo_grenade",
     "casing": "grenade_casing"
   },
   {
