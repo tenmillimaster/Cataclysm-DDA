@@ -41,7 +41,7 @@
       "9x18mmP2"
     ],
     "type": "MIGRATION",
-    "replace": "pistol_medium_ball"
+    "replace": "pistol_ball"
   },
   {
     "id": [
@@ -73,7 +73,7 @@
       "reloaded_9x18mmP2"
     ],
     "type": "MIGRATION",
-    "replace": "reloaded_pistol_medium_ball"
+    "replace": "reloaded_pistol_ball"
   },
   {
     "id": [
@@ -91,7 +91,7 @@
       "9x18mm"
     ],
     "type": "MIGRATION",
-    "replace": "pistol_medium_jhp"
+    "replace": "pistol_jhp"
   },
   {
     "id": [
@@ -115,7 +115,7 @@
       "reloaded_9x18mm"
     ],
     "type": "MIGRATION",
-    "replace": "reloaded_pistol_medium_jhp"
+    "replace": "reloaded_pistol_jhp"
   },
   {
     "id": [ "357mag_ball", "44ball", "460_ball" ],

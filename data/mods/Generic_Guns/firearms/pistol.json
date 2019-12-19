@@ -5,7 +5,7 @@
     "looks_like": "henry_big_boy",
     "type": "GUN",
     "name": "cowboy carbine",
-    "ammo_type": "ammo_pistol",
+    "ammo": "ammo_pistol",
     "description": "Since the early days of western expansion, when ammunition supply was infrequent, shooters sought to share ammo between their sidearms and long arms.  This tube magazine lever action carbine allows the shooter to reduce the number of calibers carried and squeeze more power from their pistol ammunition.",
     "clip_size": 10
   },
@@ -15,7 +15,7 @@
     "looks_like": "glock_18c",
     "type": "GUN",
     "name": "machine pistol",
-    "ammo_type": "ammo_pistol",
+    "ammo": "ammo_pistol",
     "description": "This pistol is a tiny machinegun you can stuff into a holster, with which you could dump its magazine at a blistering rate into any close range foes.  Machine pistols mostly see use by vehicle crewmen or bodygaurds of VIPs. Due to its preposterous rate of fire it is difficult to fire controllably.",
     "magazines": [ [ "ammo_pistol", [ "pistol_medium_mag",  "pistol_smg_mag" ] ] ]
   },
@@ -25,7 +25,7 @@
     "looks_like": "glock_19",
     "type": "GUN",
     "name": "defensive pistol",
-    "ammo_type": "ammo_pistol",
+    "ammo": "ammo_pistol",
     "description": "A modern pistol fit for duty, military service, or personal defense, with a detachable box magazine and a reliable action.  Though its chambering is capable of meeting FBI penetration minimums, the lack of a shoulder stock limits its utility.",
     "magazines": [ [ "ammo_pistol", [ "pistol_medium_mag",  "pistol_smg_mag" ] ] ]
   },
@@ -35,7 +35,7 @@
     "looks_like": "cx4",
     "type": "GUN",
     "name": "survivalist carbine",
-    "ammo_type": "ammo_pistol",
+    "ammo": "ammo_pistol",
     "description": "These small carbines share ammunition and magazines with common pistols, offering a more controllable carbine than a normal rifle, while also reducing ammunition costs.  Because of their compatibility, they pair well with duty pistols, allowing one to transition to a more stable weapon without carrying extra ammo or magazines.",
     "magazines": [ [ "ammo_pistol", [ "pistol_medium_mag",  "pistol_smg_mag" ] ] ]
   },
@@ -45,9 +45,10 @@
     "looks_like": "ruger_lcr_38",
     "type": "GUN",
     "name": "police revolver",
-    "ammo_type": "ammo_pistol",
-    "description": "This may not be an actual police firearm, but similar revolvers chambered for standard defensive calibers like this were a favorite of police departments for nearly a century, up until the 1986 Miami shootout.  Afterwards, the slow reloading and shooting of revolvers were considered liabilities; still, this model's accuracy and moderate recoil make for a serviceable sidearm, and there are no magazines for you to lose or damage either.",
-    "clip_size": 6
+    "ammo": "ammo_pistol",
+    "description": "This may not be an actual police firearm, but similar revolvers chambered for standard defensive calibers like this were a favorite of police departments for nearly a century, up until the 1986 Miami shootout.  Afterwards, the slow reloading and shooting of revolvers were considered liabilities; still, this model's accuracy and moderate recoil make for a serviceable sidearm, and there are no magazines for you to lose or damage.",
+    "clip_size": 6,
+    "magazines": [ [ "ammo_pistol", [ "pistol_speedloader" ] ] ]
   },
   {
     "id": "pistol_pipe_smg",
@@ -55,7 +56,7 @@
     "looks_like": "smg_9mm",
     "type": "GUN",
     "name": "survivor subgun",
-    "ammo_type": "ammo_pistol",
+    "ammo": "ammo_pistol",
     "description": "A crudely constructed fully automatic submachinegun, accepting standard pistol and submachine gun magazines.  The heavy bolt makes accurate fire difficult, and its questionable construction makes for poor reliability and longevity.  Similar designs of desperation from the Second World War served their nations well enough, so this should be good for zombies... right?  Accepts standard pistol ammunition.",
     "magazines": [ [ "ammo_pistol", [ "pistol_medium_mag",  "pistol_smg_mag" ] ] ]
   }

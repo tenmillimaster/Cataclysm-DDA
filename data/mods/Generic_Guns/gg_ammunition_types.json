@@ -8,9 +8,9 @@
 },
 {
   "type": "ammunition_type",
-  "id": "ammo_pistol_medium",
+  "id": "ammo_pistol",
   "//": ".380 to .357sig",
-  "name": "medium pistol ammo",
+  "name": "standard pistol ammo",
   "default": "pistol_ball"
 },
 {

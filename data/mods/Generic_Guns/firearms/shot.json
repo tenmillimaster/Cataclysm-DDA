@@ -5,7 +5,7 @@
     "looks_like": "shotgun_d",
     "type": "GUN",
     "name": "double-barrel shotgun",
-    "ammo_type": "ammo_shot",
+    "ammo": "ammo_shot",
     "description": "An old-fashioned double barreled shotgun, with a trigger for each barrel.  Follow up shots are incredibly quick with this, but reloading is a bit slow.  Shotshells come in many varieties, and shotguns are suitable for anything from some large game to small birds.",
     "magazines": [ [ "ammo_shot", [ "" ] ] ]
   },
@@ -15,7 +15,7 @@
     "looks_like": "remington_870",
     "type": "GUN",
     "name": "sporting shotgun",
-    "ammo_type": "ammo_shot",
+    "ammo": "ammo_shot",
     "description": "A tube magazine fed shotgun, a simple and long-popular design among law enforcement, civilians and in some military applications.  Though reloading is slow and the recoil can be stout, shotgun ammo comes in many varieties and are suitable for anything from large game to small birds.",
     "clip_size": 6
   }

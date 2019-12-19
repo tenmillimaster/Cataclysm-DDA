@@ -1,0 +1,11 @@
+[
+    {
+      "id": "pistol_magnum_automag",
+      "looks_like": "deaglemag",
+      "copy-from": "deaglemag",
+      "type": "MAGAZINE",
+      "name": "Desert Eagle magazine",
+      "description": "A standard 7-round steel box magazine for use with the IMI Desert Eagle.",
+      "ammo_type": "ammo_pistol_magnum",
+    }
+]
