@@ -1,51 +1,51 @@
 [
 {
+  "type": "ammunition_type",
   "id": "ammo_pistol_tiny",
   "//": "ammo smaller than .380ACP",
   "name": "tiny pistol ammo",
-  "default": "",
-  "type": "ammunition_type"
+  "default": "tiny_pistol_jhp"
 },
 {
+  "type": "ammunition_type",
   "id": "ammo_pistol_medium",
   "//": ".380 to .357sig",
   "name": "medium pistol ammo",
-  "default": "",
-  "type": "ammunition_type"
+  "default": "pistol_ball"
 },
 {
+  "type": "ammunition_type",
   "id": "ammo_pistol_magnum",
   "//": ".357mag and up.",
   "name": "magnum pistol ammo",
-  "default": "",
-  "type": "ammunition_type"
+  "default": "pistol_magnum_ball"
 },
 {
+  "type": "ammunition_type",
   "id": "ammo_rifle",
   "//": "any rifle ammo less powerful than .375 H&H.",
   "name": "rifle ammo",
-  "default": "",
-  "type": "ammunition_type"
+  "default": "rifle_ball"
 },
 {
+  "type": "ammunition_type",
   "id": "ammo_rifle_huge",
   "//": "ammo from .375 H&H to .50BMG. Migrate anything stronger to as-yet unimplemented light cannon ammo",
   "name": "huge rifle ammo",
-  "default": "",
-  "type": "ammunition_type"
+  "default": "rifle_huge_ball"
 },
 {
+  "type": "ammunition_type",
   "id": "ammo_grenade",
   "//": "20mm or greater ammo containing explosive material, usually 40mm.",
   "name": "grenade ammo",
-  "default": "",
-  "type": "ammunition_type"
+  "default": "grenade_ammo_HEDP"
 },
 {
+  "type": "ammunition_type",
   "id": "ammo_rocket",
   "//": "any rocket, missile, or rocket-like ordinance, like recoilless ammo",
   "name": "rocket ammo",
-  "default": "",
-  "type": "ammunition_type"
+  "default": "rocket_hedp"
 }
 ]

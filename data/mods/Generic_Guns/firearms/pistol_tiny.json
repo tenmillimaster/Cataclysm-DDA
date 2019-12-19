@@ -11,13 +11,13 @@
   },
   {
     "id": "pistol_tiny_target",
-    "copy-from": "sw22a",
-    "looks_like": "sw22a",
+    "copy-from": "sw_22",
+    "looks_like": "sw_22",
     "type": "GUN",
     "name": "target pistol",
     "ammo_type": "ammo_pistol_tiny",
     "description": "This medium sized pistol fires cheap and plentiful plinking ammo, and is exceptionally popular for practice or target shooting.  This pistol is unsuited for taking on anything but small game, as it is meant to poke holes in paper.  Accepts box magazines.",
-    "magazines": [ [ "ammo_pistol_tiny" [ "pistol_tiny_target_mag" ] ] ]
+    "magazines": [ [ "ammo_pistol_tiny", [ "pistol_tiny_target_mag" ] ] ]
   },
   {
     "id": "pistol_tiny_zip",

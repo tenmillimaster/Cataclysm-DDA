@@ -17,7 +17,7 @@
     "name": "machine pistol",
     "ammo_type": "ammo_pistol",
     "description": "This pistol is a tiny machinegun you can stuff into a holster, with which you could dump its magazine at a blistering rate into any close range foes.  Machine pistols mostly see use by vehicle crewmen or bodygaurds of VIPs. Due to its preposterous rate of fire it is difficult to fire controllably.",
-    "magazines": [ [ "ammo_pistol" [ "pistol_medium_mag",  "pistol_smg_mag" ] ] ]
+    "magazines": [ [ "ammo_pistol", [ "pistol_medium_mag",  "pistol_smg_mag" ] ] ]
   },
   {
     "id": "pistol_medium",
@@ -27,7 +27,7 @@
     "name": "defensive pistol",
     "ammo_type": "ammo_pistol",
     "description": "A modern pistol fit for duty, military service, or personal defense, with a detachable box magazine and a reliable action.  Though its chambering is capable of meeting FBI penetration minimums, the lack of a shoulder stock limits its utility.",
-    "magazines": [ [ "ammo_pistol" [ "pistol_medium_mag",  "pistol_smg_mag" ] ] ]
+    "magazines": [ [ "ammo_pistol", [ "pistol_medium_mag",  "pistol_smg_mag" ] ] ]
   },
   {
     "id": "pistol_pcc",
@@ -37,7 +37,7 @@
     "name": "survivalist carbine",
     "ammo_type": "ammo_pistol",
     "description": "These small carbines share ammunition and magazines with common pistols, offering a more controllable carbine than a normal rifle, while also reducing ammunition costs.  Because of their compatibility, they pair well with duty pistols, allowing one to transition to a more stable weapon without carrying extra ammo or magazines.",
-    "magazines": [ [ "ammo_pistol" [ "pistol_medium_mag",  "pistol_smg_mag" ] ] ]
+    "magazines": [ [ "ammo_pistol", [ "pistol_medium_mag",  "pistol_smg_mag" ] ] ]
   },
   {
     "id": "pistol_revolver",
@@ -57,6 +57,6 @@
     "name": "survivor subgun",
     "ammo_type": "ammo_pistol",
     "description": "A crudely constructed fully automatic submachinegun, accepting standard pistol and submachine gun magazines.  The heavy bolt makes accurate fire difficult, and its questionable construction makes for poor reliability and longevity.  Similar designs of desperation from the Second World War served their nations well enough, so this should be good for zombies... right?  Accepts standard pistol ammunition.",
-    "magazines": [ [ "ammo_pistol" [ "pistol_medium_mag",  "pistol_smg_mag" ] ] ]
+    "magazines": [ [ "ammo_pistol", [ "pistol_medium_mag",  "pistol_smg_mag" ] ] ]
   }
 ]
