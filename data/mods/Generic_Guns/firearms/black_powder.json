@@ -20,7 +20,7 @@
     "clip_size": 6
   },
   {
-    "id": "blackpowder_rifle",
+    "id": "black_powder_rifle",
     "copy-from": "rifle_flintlock",
     "looks_like": "rifle_flintlock",
     "type": "GUN",

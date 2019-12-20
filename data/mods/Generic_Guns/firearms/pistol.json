@@ -51,6 +51,16 @@
     "magazines": [ [ "ammo_pistol", [ "pistol_speedloader" ] ] ]
   },
   {
+    "id": "pistol_smg",
+    "copy-from": "mp5",
+    "looks_like": "mp5",
+    "type": "GUN",
+    "name": "submachine gun",
+    "ammo": "ammo_pistol",
+    "description": "Chambered in common pistol ammunition, this compact long arm is perfect for trench raiders, vehicular crewmen, SWAT teams and special forces.  Though not as accurate as a proper rifle, especially at longer ranges, it is very controllable in automatic fire.  It feeds from detachable box magazines, which are easy to unload into close range targets.",
+    "magazines": [ [ "ammo_pistol", [ "pistol_medium_mag",  "pistol_smg_mag" ] ] ]
+  },
+  {
     "id": "pistol_pipe_smg",
     "copy-from": "smg_9mm",
     "looks_like": "smg_9mm",
