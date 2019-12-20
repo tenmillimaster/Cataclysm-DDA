@@ -74,6 +74,6 @@
     "ammo": "ammo_pistol_magnum",
     "description": "Early handgun hunters helped develop this revolver's magnum ammunition, which needed heavier frames and modern construction to safely fire it.  Its standard caliber roots and revolver design mean it will also feed standard pistol ammo.  You could take medium to large game with this hefty piece.",
     "clip_size": 6,
-    "magazines": [ [ "ammo_pistol", [ "pistol_speedloader" ] ], [ "ammo_pistol_magnum", [ "pistol_speedloader" ] ] ],
+    "magazines": [ [ "ammo_pistol", [ "pistol_speedloader" ] ], [ "ammo_pistol_magnum", [ "pistol_speedloader" ] ] ]
   }
 ]

@@ -1,10 +1,11 @@
 [
   {
-    "id": "rifle_huge_hmg_belt",
+    "id": "rifle_huge_belt",
     "copy-from": "belt50",
     "looks_like": "belt50",
     "type": "MAGAZINE",
     "name": "heavy machine gun belt",
+    "description": "An ammo belt consisting of metal linkages which separate from the belt upon firing.  Holds huge rifle ammunition.",
     "ammo_type": "ammo_rifle_huge",
     "linkage": "ammolink50"
   },
@@ -14,7 +15,7 @@
     "copy-from": "m107a1mag",
     "looks_like": "m107a1mag",
     "name": "anti-materiel rifle magazine",
-    "description": "Standard 10-round box magazine for a Barrett M107A1 anti-materiel rifle.",
+    "description": "A huge 10 round magazine for anti-materiel rifles.",
     "ammo_type": "ammo_rifle_huge"
-  },
+  }
 ]

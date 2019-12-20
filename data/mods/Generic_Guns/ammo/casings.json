@@ -7,7 +7,7 @@
     "description": "An empty casing from a tiny pistol round."
   },
   {
-    "id": "pistol_medium_casing",
+    "id": "pistol_casing",
     "copy-from": "9mm_casing",
     "type": "GENERIC",
     "name": "medium pistol casing",

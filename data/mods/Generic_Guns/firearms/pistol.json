@@ -52,8 +52,8 @@
   },
   {
     "id": "pistol_smg",
-    "copy-from": "mp5",
-    "looks_like": "mp5",
+    "copy-from": "hk_mp5",
+    "looks_like": "hk_mp5",
     "type": "GUN",
     "name": "submachine gun",
     "ammo": "ammo_pistol",
