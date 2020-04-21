@@ -537,6 +537,11 @@ void Character::melee_attack( Creature &t, bool allow_special, const matec_id &f
                 }
             }
 
+            // Remove charges from weapon if weapon loses charge on hits
+
+            add_msg( m_debug, "charge per hit: %d", cur_weapon.type->tool->charges_per_hit );
+            cur_weapon.charges = std::max( 0, cur_weapon.charges - cur_weapon.type->tool->charges_per_hit );
+
             // Make a rather quiet sound, to alert any nearby monsters
             if( !is_quiet() ) { // check martial arts silence
                 //sound generated later
