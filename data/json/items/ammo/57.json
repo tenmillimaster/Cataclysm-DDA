@@ -27,7 +27,7 @@
     "copy-from": "57mm",
     "type": "AMMO",
     "name": { "str_sp": "5.7x28mm SB193" },
-    "description": "A subsonic cartridge derived from the 5.7x28mm, designed for silenced firearms.  It offers good armor penetration at the cost of slightly less damage.",
+    "description": "A subsonic loading of 5.7x28mm, loaded with a 55gr full metal jacket, Boat Tailed bullet, designed for silenced firearms.  It offers good armor penetration at the cost of slightly less damage.",
     "relative": {
       "price": 100,
       "range": -1,

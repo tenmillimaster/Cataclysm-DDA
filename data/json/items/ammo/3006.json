@@ -26,8 +26,8 @@
     "id": "3006_incendiary",
     "copy-from": "3006",
     "type": "AMMO",
-    "name": { "str_sp": ".30-06 M14A1 tracer" },
-    "description": ".30-06 M14A1 tracer ammunition to help keep the weapon it is fired from on target.",
+    "name": { "str_sp": ".30-06 M25 tracer" },
+    "description": ".30-06 M25 tracer ammunition, loaded with a 146gr full metal jacket tracer bullet to help keep the weapon it is fired from on target.",
     "extend": { "effects": [ "INCENDIARY" ] }
   },
   {
@@ -35,7 +35,7 @@
     "copy-from": "3006",
     "type": "AMMO",
     "name": { "str_sp": ".30-06 M2 AP" },
-    "description": "Armor piercing .30-06 M2 ammunition with a 168gr FMJ bullet.  It is an extremely powerful and accurate cartridge, but pays for its armor penetration abilities with lowered damage.",
+    "description": "Armor piercing .30-06 M2 ammunition with a 168gr full metal jacket bullet.  It is an extremely powerful and accurate cartridge, but pays for its armor penetration abilities with lowered damage.",
     "relative": { "damage": { "damage_type": "bullet", "amount": -4, "armor_penetration": 8 } }
   },
   {
@@ -43,7 +43,7 @@
     "copy-from": "3006",
     "type": "AMMO",
     "name": { "str_sp": ".30-06 Springfield, black powder" },
-    "description": ".30-06 Springfield ammunition with a 165gr soft point bullet.  The .30-06 cartridge has excellent accuracy, range, and stopping power making it popular with hunters and snipers for well over a century.  Someone was down on their luck when they hand-reloaded this one - it's filled with black powder instead of smokeless powder.  Expect lower velocity, muzzle smoke, and a dirtier barrel if you shoot it.",
+    "description": ".30-06 Springfield ammunition with a 165gr soft point bullet.  The .30-06 cartridge has excellent accuracy, range, and stopping power making it popular with hunters and snipers for well over a century.  Someone was down on their luck when they handloaded this one - it's filled with black powder instead of smokeless powder.  Expect lower velocity, muzzle smoke, and a dirtier barrel if you shoot it.",
     "proportional": {
       "price": 0.3,
       "damage": { "damage_type": "bullet", "amount": 0.76, "armor_penetration": 0.5 },
@@ -58,7 +58,7 @@
     "copy-from": "3006_incendiary",
     "type": "AMMO",
     "name": { "str_sp": ".30-06 Springfield tracer, black powder" },
-    "description": ".30-06 M14A1 tracer ammunition to help keep the weapon it is fired from on target.  Someone was down on their luck when they hand-reloaded this - it's filled with black powder instead of smokeless powder.  Expect lower velocity, muzzle smoke, and a dirtier barrel if you shoot it.",
+    "description": ".30-06 M25 tracer ammunition, loaded with a 146gr full metal jacket tracer bullet to help keep the weapon it is fired from on target.  Someone was down on their luck when they handloaded this - it's filled with black powder instead of smokeless powder.  Expect lower velocity, muzzle smoke, and a dirtier barrel if you shoot it.",
     "proportional": {
       "price": 0.3,
       "damage": { "damage_type": "bullet", "amount": 0.76, "armor_penetration": 0.5 },
@@ -73,7 +73,7 @@
     "copy-from": "bp_3006",
     "type": "AMMO",
     "name": { "str_sp": ".30-06 Springfield M2 AP, black powder" },
-    "description": "Armor piercing .30-06 M2 ammunition with a 168gr FMJ bullet.  It is an extremely powerful and accurate cartridge, but pays for its armor penetration abilities with lowered damage.  Someone was down on their luck when they hand-reloaded this one - it's filled with black powder instead of smokeless powder.  Expect lower velocity, muzzle smoke, and a dirtier barrel if you shoot it.",
+    "description": "Armor piercing .30-06 M2 ammunition with a 168gr full metal jacket bullet.  It is an extremely powerful and accurate cartridge, but pays for its armor penetration abilities with lowered damage.  Someone was down on their luck when they handloaded this one - it's filled with black powder instead of smokeless powder.  Expect lower velocity, muzzle smoke, and a dirtier barrel if you shoot it.",
     "proportional": {
       "price": 0.3,
       "damage": { "damage_type": "bullet", "amount": 0.76, "armor_penetration": 0.5 },
@@ -88,7 +88,7 @@
     "copy-from": "3006",
     "type": "AMMO",
     "name": { "str_sp": ".30-06 Springfield, reloaded" },
-    "description": ".30-06 Springfield ammunition with a 165gr soft point bullet.  The .30-06 cartridge has excellent accuracy, range, and stopping power making it popular with hunters and snipers for well over a century.  This one has been hand-reloaded by a survivor or perhaps a pre-Cataclysm hobbyist, leading to slightly inferior performance compared to factory-produced ammo.",
+    "description": ".30-06 Springfield ammunition with a 165gr soft point bullet.  The .30-06 cartridge has excellent accuracy, range, and stopping power making it popular with hunters and snipers for well over a century.  This one has been handloaded by a survivor or perhaps a pre-Cataclysm hobbyist, leading to slightly inferior performance compared to factory-produced ammo.",
     "proportional": { "price": 0.7, "damage": { "damage_type": "bullet", "amount": 0.9 }, "dispersion": 1.1 },
     "extend": { "effects": [ "RECYCLED" ] },
     "delete": { "effects": [ "NEVER_MISFIRES" ], "flags": [ "IRREPLACEABLE_CONSUMABLE" ] }
@@ -98,7 +98,7 @@
     "copy-from": "3006_incendiary",
     "type": "AMMO",
     "name": { "str_sp": ".30-06 tracer, reloaded" },
-    "description": ".30-06 M14A1 tracer ammunition to help keep the weapon it is fired from on target.  It's been hand-reloaded by a survivor or perhaps a pre-Cataclysm hobbyist, leading to slightly inferior performance compared to factory-produced ammo.",
+    "description": ".30-06 M25 tracer ammunition, loaded with a 146gr full metal jacket tracer bullet to help keep the weapon it is fired from on target.  It's been handloaded by a survivor or perhaps a pre-Cataclysm hobbyist, leading to slightly inferior performance compared to factory-produced ammo.",
     "proportional": { "price": 0.7, "damage": { "damage_type": "bullet", "amount": 0.9 }, "dispersion": 1.1 },
     "extend": { "effects": [ "RECYCLED" ] },
     "delete": { "effects": [ "NEVER_MISFIRES" ], "flags": [ "IRREPLACEABLE_CONSUMABLE" ] }
@@ -108,7 +108,7 @@
     "copy-from": "3006fmj",
     "type": "AMMO",
     "name": { "str_sp": ".30-06 M2 AP, reloaded" },
-    "description": "Armor piercing .30-06 M2 ammunition with a 168gr FMJ bullet.  It is an extremely powerful and accurate cartridge, but pays for its armor penetration abilities with lowered damage.  This one has been hand-reloaded by a survivor or perhaps a pre-Cataclysm hobbyist, leading to slightly inferior performance compared to factory-produced ammo.",
+    "description": "Armor piercing .30-06 M2 ammunition with a 168gr full metal jacket bullet.  It is an extremely powerful and accurate cartridge, but pays for its armor penetration abilities with lowered damage.  This one has been handloaded by a survivor or perhaps a pre-Cataclysm hobbyist, leading to slightly inferior performance compared to factory-produced ammo.",
     "proportional": { "price": 0.7, "damage": { "damage_type": "bullet", "amount": 0.9 }, "dispersion": 1.1 },
     "extend": { "effects": [ "RECYCLED" ] },
     "delete": { "effects": [ "NEVER_MISFIRES" ], "flags": [ "IRREPLACEABLE_CONSUMABLE" ] }

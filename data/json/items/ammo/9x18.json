@@ -27,7 +27,7 @@
     "copy-from": "9x18mm",
     "type": "AMMO",
     "name": { "str_sp": "9x18mm SP-7" },
-    "description": "9x18mm Makarov SP-7 ammunition.  The 9x18mm round was very common in the Eastern Bloc during the 20th century and remained in Russian military service into the 21st.",
+    "description": "9x18mm Makarov SP-7 ammunition loaded with a 123gr jacketed hollow point bullet.  The 9x18mm round was very common in the Eastern Bloc during the 20th century and remained in Russian military service into the 21st.",
     "price": 150,
     "price_postapoc": 1000,
     "flags": [ "IRREPLACEABLE_CONSUMABLE" ],
@@ -40,7 +40,7 @@
     "copy-from": "9x18mm",
     "type": "AMMO",
     "name": { "str_sp": "9x18mm RG028" },
-    "description": "9x18mm Makarov RG028 ammunition.  The RG028 round uses a bullet with a hardened steel core to improve armor penetration.",
+    "description": "9x18mm Makarov RG028 ammunition.  The RG028 round uses a 170gr bullet with a hardened steel core to improve armor penetration.",
     "price": 200,
     "price_postapoc": 3100,
     "relative": { "damage": { "damage_type": "bullet", "amount": -2, "armor_penetration": 8 } }
@@ -50,7 +50,7 @@
     "copy-from": "9x18mm",
     "type": "AMMO",
     "name": { "str_sp": "9x18mm, black powder" },
-    "description": "9x18mm Makarov ammunition with a 93gr steel core FMJ bullet.  The 9x18mm round was very common in the Eastern Bloc during the 20th century, and remained in Russian military service into the 21st.  Someone was down on their luck when they hand-reloaded this one - it's filled with black powder instead of smokeless powder.  Expect lower velocity, muzzle smoke, and a dirtier barrel if you shoot it.",
+    "description": "9x18mm Makarov ammunition with a 93gr steel core FMJ bullet.  The 9x18mm round was very common in the Eastern Bloc during the 20th century, and remained in Russian military service into the 21st.  Someone was down on their luck when they handloaded this one - it's filled with black powder instead of smokeless powder.  Expect lower velocity, muzzle smoke, and a dirtier barrel if you shoot it.",
     "proportional": {
       "price": 0.3,
       "damage": { "damage_type": "bullet", "amount": 0.76, "armor_penetration": 0.5 },
@@ -65,7 +65,7 @@
     "copy-from": "9x18mmfmj",
     "type": "AMMO",
     "name": { "str_sp": "9x18mm FMJ, black powder" },
-    "description": "9x18mm Makarov RG028 ammunition.  The RG028 round uses a bullet with a hardened steel core to improve armor penetration.  Someone was down on their luck when they hand-reloaded this one - it's filled with black powder instead of smokeless powder.  Expect lower velocity, muzzle smoke, and a dirtier barrel if you shoot it.",
+    "description": "9x18mm Makarov RG028 ammunition.  The RG028 round uses a 170gr bullet with a hardened steel core to improve armor penetration.  Someone was down on their luck when they handloaded this one - it's filled with black powder instead of smokeless powder.  Expect lower velocity, muzzle smoke, and a dirtier barrel if you shoot it.",
     "proportional": {
       "price": 0.3,
       "damage": { "damage_type": "bullet", "amount": 0.76, "armor_penetration": 0.5 },
@@ -80,7 +80,7 @@
     "copy-from": "9x18mm",
     "type": "AMMO",
     "name": { "str_sp": "9x18mm, reloaded" },
-    "description": "9x18 millimeter Makarov, an old Soviet pistol cartridge used mainly by the Makarov PM.  As the designation implies, it is a bit shorter in case length compared to 9mm Parabellum.  This one has been hand-reloaded by a survivor or perhaps a pre-Cataclysm hobbyist, leading to slightly inferior performance compared to factory-produced ammo.",
+    "description": "9x18 millimeter Makarov loaded with a 95gr full metal jacket bullet.  The 9x18mm round was very common in the Eastern Bloc during the 20th century, and remained in Russian military service into the 21st.  This one has been handloaded by a survivor or perhaps a pre-Cataclysm hobbyist, leading to slightly inferior performance compared to factory-produced ammo.",
     "proportional": { "price": 0.7, "damage": { "damage_type": "bullet", "amount": 0.9 }, "dispersion": 1.1 },
     "extend": { "effects": [ "RECYCLED" ] },
     "delete": { "effects": [ "NEVER_MISFIRES" ], "flags": [ "IRREPLACEABLE_CONSUMABLE" ] }
@@ -91,7 +91,7 @@
     "type": "AMMO",
     "name": { "str_sp": "9x18mm +P+, reloaded" },
     "//": "Rather than give it a military designation, this is simply handmade overpressure ammo.",
-    "description": "9x18 millimeter Makarov, an old Soviet pistol cartridge used mainly by the Makarov PM.  This one has been hand-reloaded to generate higher internal pressure, boosting flight stability and damage.",
+    "description": "9x18 millimeter Makarov loaded with a 115gr full metal jacket bullet.  The 9x18mm round was very common in the Eastern Bloc during the 20th century, and remained in Russian military service into the 21st.  This one has been handloaded to generate higher internal pressure, boosting flight stability and damage.",
     "proportional": { "price": 0.7, "damage": { "damage_type": "bullet", "amount": 0.9 }, "dispersion": 1.1 },
     "extend": { "effects": [ "RECYCLED" ] },
     "delete": { "effects": [ "NEVER_MISFIRES" ], "flags": [ "IRREPLACEABLE_CONSUMABLE" ] }
@@ -101,7 +101,7 @@
     "copy-from": "9x18mmfmj",
     "type": "AMMO",
     "name": { "str_sp": "9x18mm FMJ, reloaded" },
-    "description": "9x18 millimeter Makarov, an old Soviet pistol cartridge used mainly by the Makarov PM.  This brass-jacketed round increases penetration slightly, at the cost of reduced expansion.  This one has been hand-reloaded by a survivor or perhaps a pre-Cataclysm hobbyist, leading to slightly inferior performance compared to factory-produced ammo.",
+    "description": "9x18 millimeter Makarov loaded with a 95gr full metal jacket bullet.  The 9x18mm round was very common in the Eastern Bloc during the 20th century, and remained in Russian military service into the 21st.  This brass-jacketed round increases penetration slightly, at the cost of reduced expansion.  This one has been handloaded by a survivor or perhaps a pre-Cataclysm hobbyist, leading to slightly inferior performance compared to factory-produced ammo.",
     "proportional": { "price": 0.7, "damage": { "damage_type": "bullet", "amount": 0.9 }, "dispersion": 1.1 },
     "extend": { "effects": [ "RECYCLED" ] },
     "delete": { "effects": [ "NEVER_MISFIRES" ], "flags": [ "IRREPLACEABLE_CONSUMABLE" ] }

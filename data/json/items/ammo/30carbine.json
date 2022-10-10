@@ -42,7 +42,7 @@
     "copy-from": "30carbine",
     "type": "AMMO",
     "name": { "str_sp": ".30 Carbine, reloaded" },
-    "description": ".30 Carbine ammunition with a 110gr full metal jacket bullet.  This one has been hand-reloaded, leading to slightly inferior performance compared to factory-produced ammo.",
+    "description": ".30 Carbine ammunition with a 110gr full metal jacket bullet.  This one has been handloaded, leading to slightly inferior performance compared to factory-produced ammo.",
     "proportional": { "price": 0.7, "damage": { "damage_type": "bullet", "amount": 0.9 }, "dispersion": 1.1, "recoil": 0.9 }
   }
 ]
