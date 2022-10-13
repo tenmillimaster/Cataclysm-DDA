@@ -63,7 +63,7 @@
     "copy-from": "20x66_abstract",
     "type": "AMMO",
     "name": { "str_sp": "20x66mm explosive" },
-    "description": "A 20x66mm caseless shotgun round, loaded with a 2oz FRAG-10 HE munition with 4.5 grams of Composition A5.  The box shaped body of this cartridge doubles as its propellant.  Proprietary ammunition for Rivtech shotguns.",
+    "description": "A 20x66mm caseless shotgun round, loaded with a 2oz FRAG-10 High Explosive munition with 4.5 grams of Composition A5.  The box shaped body of this cartridge doubles as its propellant.  Proprietary ammunition for Rivtech shotguns.",
     "price": 10000,
     "price_postapoc": 8000,
     "range": 20,
@@ -86,6 +86,20 @@
     "recoil": 100,
     "drop": "handflare_lit",
     "effects": [ "NO_EMBED" ],
+    "extend": { "flags": [ "CASELESS_ROUNDS" ] }
+  },
+  {
+    "id": "20x66_flechette",
+    "copy-from": "20x66_shot",
+    "type": "AMMO",
+    "name": { "str": "20x66mm flechette" },
+    "description": "A 20x66mm caseless shotgun round, loaded with twenty-five 18.5mm long darts, weighing 0.47 grams each.  The box shaped body of this cartridge doubles as its propellant.  Proprietary ammunition for Rivtech shotguns.",
+    "price": 4000,
+    "price_postapoc": 4000,
+    "count": 10,
+    "shot_spread": 5,
+    "shot_damage": { "damage_type": "bullet", "amount": 8, "armor_penetration": 12 },
+    "damage": { "damage_type": "bullet", "amount": 50 },
     "extend": { "flags": [ "CASELESS_ROUNDS" ] }
   },
   {
