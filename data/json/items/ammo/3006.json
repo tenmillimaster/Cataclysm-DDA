@@ -2,8 +2,8 @@
   {
     "id": "3006",
     "type": "AMMO",
-    "name": { "str_sp": ".30-06 Springfield" },
-    "description": ".30-06 Springfield ammunition with a 165gr soft point bullet.  The .30-06 cartridge has excellent accuracy, range, and stopping power making it popular with hunters and snipers for well over a century.",
+    "name": { "str_sp": ".30-06 M2 Ball" },
+    "description": ".30-06 Springfield ammunition loaded with a 150gr full metal jacket bullet, either surplus or emulating the wartime M2 ball loading.  The .30-06 cartridge has excellent accuracy, range, and stopping power making it popular with hunters and snipers for well over a century.",
     "weight": "20 g",
     "volume": "192 ml",
     "price": 160,
@@ -27,7 +27,7 @@
     "copy-from": "3006",
     "type": "AMMO",
     "name": { "str_sp": ".30-06 M25 tracer" },
-    "description": ".30-06 M25 tracer ammunition, loaded with a 146gr full metal jacket tracer bullet to help keep the weapon it is fired from on target.",
+    "description": ".30-06 M25 tracer ammunition, loaded with a 146gr full metal jacket tracer bullet to help keep the weapon it is fired from on target.  Traditional practice is to load one tracer per every four normal rounds to help keep the weapon they are fired from on target.  The .30-06 cartridge has excellent accuracy, range, and stopping power making it popular with hunters and snipers for well over a century.",
     "extend": { "effects": [ "INCENDIARY" ] }
   },
   {
@@ -35,7 +35,7 @@
     "copy-from": "3006",
     "type": "AMMO",
     "name": { "str_sp": ".30-06 M2 AP" },
-    "description": "Armor piercing .30-06 M2 ammunition with a 168gr full metal jacket bullet.  It is an extremely powerful and accurate cartridge, but pays for its armor penetration abilities with lowered damage.",
+    "description": "Armor piercing .30-06 M2 ammunition with a 168gr brass jacketed, steel core bullet.  The .30-06 cartridge has excellent accuracy, range, and stopping power making it popular with hunters and snipers for well over a century.",
     "relative": { "damage": { "damage_type": "bullet", "amount": -4, "armor_penetration": 8 } }
   },
   {
