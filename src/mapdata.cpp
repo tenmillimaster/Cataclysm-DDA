@@ -256,6 +256,7 @@ std::string enum_to_string<ter_furn_flag>( ter_furn_flag data )
         case ter_furn_flag::TFLAG_TRANSPARENT_FLOOR: return "TRANSPARENT_FLOOR";
         case ter_furn_flag::TFLAG_TOILET_WATER: return "TOILET_WATER";
         case ter_furn_flag::TFLAG_ELEVATOR: return "ELEVATOR";
+		case ter_furn_flag::TFLAG_ACTIVE_GENERATOR: return "ACTIVE_GENERATOR";
 
         // *INDENT-ON*
         case ter_furn_flag::NUM_TFLAG_FLAGS:
@@ -266,32 +267,59 @@ std::string enum_to_string<ter_furn_flag>( ter_furn_flag data )
 
 } // namespace io
 
-static const std::unordered_map<std::string, ter_connects> ter_connects_map = { {
-        { "WALL",                     TERCONN_WALL },         // implied for connects_to by ter_furn_flag::TFLAG_CONNECT_WITH_WALL, ter_furn_flag::TFLAG_AUTO_WALL_SYMBOL or ter_furn_flag::TFLAG_WALL
-        { "CHAINFENCE",               TERCONN_CHAINFENCE },
-        { "WOODFENCE",                TERCONN_WOODFENCE },
-        { "RAILING",                  TERCONN_RAILING },
-        { "WATER",                    TERCONN_WATER },
-        { "POOLWATER",                TERCONN_POOLWATER },
-        { "PAVEMENT",                 TERCONN_PAVEMENT },
-        { "PAVEMENT_MARKING",         TERCONN_PAVEMENT_MARKING },
-        { "RAIL",                     TERCONN_RAIL },
-        { "COUNTER",                  TERCONN_COUNTER },
-        { "CANVAS_WALL",              TERCONN_CANVAS_WALL },
-        { "SAND",                     TERCONN_SAND },
-        { "PIT_DEEP",                 TERCONN_PIT_DEEP },
-        { "LINOLEUM",                 TERCONN_LINOLEUM },
-        { "CARPET",                   TERCONN_CARPET },
-        { "CONCRETE",                 TERCONN_CONCRETE },
-        { "CLAY",                     TERCONN_CLAY },
-        { "DIRT",                     TERCONN_DIRT },
-        { "ROCKFLOOR",                TERCONN_ROCKFLOOR },
-        { "MULCHFLOOR",               TERCONN_MULCHFLOOR },
-        { "METALFLOOR",               TERCONN_METALFLOOR },
-        { "WOODFLOOR",                TERCONN_WOODFLOOR },
-        { "INDOORFLOOR",              TERCONN_INDOORFLOOR },         // implied for rotates_to by ter_furn_flag::WINDOW and ter_furn_flag::DOOR, and for rotates_to_member by ter_furn_flag::INDOORS
+static std::unordered_map<std::string, connect_group> ter_connects_map;
+
+connect_group get_connect_group( const std::string &name )
+{
+    return ter_connects_map[name];
+}
+
+void connect_group::load( const JsonObject &jo )
+{
+
+    connect_group result;
+
+    result.id = connect_group_id( jo.get_string( "id" ) );
+    result.index = ter_connects_map.find( result.id.str() ) == ter_connects_map.end() ?
+                   ter_connects_map.size() : ter_connects_map[result.id.str()].index;
+    // Check index overflow for bitsets
+    if( result.index >= NUM_TERCONN ) {
+        debugmsg( "Exceeded current maximum of %d connection groups.  Increase NUM_TERCONN to allow for more groups!",
+                  NUM_TERCONN );
+        return;
     }
-};
+
+    if( jo.has_string( "group_flags" ) || jo.has_array( "group_flags" ) ) {
+        const std::vector<std::string> str_flags = jo.get_as_string_array( "group_flags" );
+        for( const std::string &flag : str_flags ) {
+            const ter_furn_flag f = io::string_to_enum<ter_furn_flag>( flag );
+            result.group_flags.insert( f );
+        }
+    }
+
+    if( jo.has_string( "connects_to_flags" ) || jo.has_array( "connects_to_flags" ) ) {
+        const std::vector<std::string> str_flags = jo.get_as_string_array( "connects_to_flags" );
+        for( const std::string &flag : str_flags ) {
+            const ter_furn_flag f = io::string_to_enum<ter_furn_flag>( flag );
+            result.connects_to_flags.insert( f );
+        }
+    }
+
+    if( jo.has_string( "rotates_to_flags" ) || jo.has_array( "rotates_to_flags" ) ) {
+        const std::vector<std::string> str_flags = jo.get_as_string_array( "rotates_to_flags" );
+        for( const std::string &flag : str_flags ) {
+            const ter_furn_flag f = io::string_to_enum<ter_furn_flag>( flag );
+            result.rotates_to_flags.insert( f );
+        }
+    }
+
+    ter_connects_map[ result.id.str() ] = result;
+}
+
+void connect_group::reset()
+{
+    ter_connects_map.clear();
+}
 
 static void load_map_bash_tent_centers( const JsonArray &ja, std::vector<furn_str_id> &centers )
 {
@@ -628,25 +656,24 @@ void map_data_common_t::extraprocess_flags( const ter_furn_flag flag )
     if( !transparent && flag == ter_furn_flag::TFLAG_TRANSPARENT ) {
         transparent = true;
     }
-    // wall connection check for JSON backwards compatibility
-    if( flag == ter_furn_flag::TFLAG_WALL || flag == ter_furn_flag::TFLAG_CONNECT_WITH_WALL ) {
-        set_connect_groups( { "WALL" } );
-        set_connects_to( { "WALL" } );
-    }
-    // rotates_to check for JSON backwards compatibility
-    if( flag == ter_furn_flag::TFLAG_WINDOW || flag == ter_furn_flag::TFLAG_DOOR ) {
-        set_rotates_to( { "INDOORFLOOR" } );
-    }
-    // rotates_to_member check for JSON backwards compatibility
-    if( flag == ter_furn_flag::TFLAG_INDOORS ) {
-        set_connect_groups( { "INDOORFLOOR" } );
+
+    for( std::pair<const std::string, connect_group> &item : ter_connects_map ) {
+        if( item.second.group_flags.find( flag ) != item.second.group_flags.end() ) {
+            set_connect_groups( { item.second.id.str() } );
+        }
+        if( item.second.connects_to_flags.find( flag ) != item.second.connects_to_flags.end() ) {
+            set_connects_to( { item.second.id.str() } );
+        }
+        if( item.second.rotates_to_flags.find( flag ) != item.second.rotates_to_flags.end() ) {
+            set_rotates_to( { item.second.id.str() } );
+        }
     }
 }
 
 void map_data_common_t::set_flag( const std::string &flag )
 {
     flags.insert( flag );
-    cata::optional<ter_furn_flag> f = io::string_to_enum_optional<ter_furn_flag>( flag );
+    std::optional<ter_furn_flag> f = io::string_to_enum_optional<ter_furn_flag>( flag );
     if( f.has_value() ) {
         bitflags.set( f.value() );
         extraprocess_flags( f.value() );
@@ -693,9 +720,9 @@ void map_data_common_t::set_groups( std::bitset<NUM_TERCONN> &bits,
         const auto it = ter_connects_map.find( grp );
         if( it != ter_connects_map.end() ) {
             if( remove ) {
-                bits.reset( it->second );
+                bits.reset( it->second.index );
             } else {
-                bits.set( it->second );
+                bits.set( it->second.index );
             }
         } else {
             debugmsg( "can't find terrain group %s", group.c_str() );
@@ -787,20 +814,18 @@ ter_id t_null,
        t_gas_pump, t_gas_pump_smashed,
        t_diesel_pump, t_diesel_pump_smashed,
        t_atm,
-       t_generator_broken,
        t_missile, t_missile_exploded,
        t_radio_tower, t_radio_controls,
-       t_console_broken, t_console, t_gates_mech_control, t_gates_control_concrete, t_gates_control_brick,
+       t_gates_mech_control, t_gates_control_concrete, t_gates_control_brick,
        t_barndoor, t_palisade_pulley,
        t_gates_control_metal,
        t_sewage_pipe, t_sewage_pump,
-       t_centrifuge,
        t_column,
        t_vat,
        t_rootcellar,
        t_cvdbody, t_cvdmachine,
        t_water_pump,
-       t_conveyor, t_machinery_light, t_machinery_heavy, t_machinery_old, t_machinery_electronic,
+       t_conveyor,
        t_improvised_shelter,
        // Staircases etc.
        t_stairs_down, t_stairs_up, t_manhole, t_ladder_up, t_ladder_down, t_slope_down,
@@ -812,7 +837,7 @@ ter_id t_null,
        t_pedestal_temple,
        // Temple tiles
        t_rock_red, t_rock_green, t_rock_blue, t_floor_red, t_floor_green, t_floor_blue,
-       t_switch_rg, t_switch_gb, t_switch_rb, t_switch_even, t_open_air, t_plut_generator,
+       t_switch_rg, t_switch_gb, t_switch_rb, t_switch_even, t_open_air,
        t_pavement_bg_dp, t_pavement_y_bg_dp, t_sidewalk_bg_dp, t_guardrail_bg_dp,
        t_rad_platform,
        // Railroad and subway
@@ -1045,13 +1070,10 @@ void set_ter_ids()
     t_diesel_pump = ter_id( "t_diesel_pump" );
     t_diesel_pump_smashed = ter_id( "t_diesel_pump_smashed" );
     t_atm = ter_id( "t_atm" );
-    t_generator_broken = ter_id( "t_generator_broken" );
     t_missile = ter_id( "t_missile" );
     t_missile_exploded = ter_id( "t_missile_exploded" );
     t_radio_tower = ter_id( "t_radio_tower" );
     t_radio_controls = ter_id( "t_radio_controls" );
-    t_console_broken = ter_id( "t_console_broken" );
-    t_console = ter_id( "t_console" );
     t_gates_mech_control = ter_id( "t_gates_mech_control" );
     t_gates_control_brick = ter_id( "t_gates_control_brick" );
     t_gates_control_concrete = ter_id( "t_gates_control_concrete" );
@@ -1060,7 +1082,6 @@ void set_ter_ids()
     t_gates_control_metal = ter_id( "t_gates_control_metal" );
     t_sewage_pipe = ter_id( "t_sewage_pipe" );
     t_sewage_pump = ter_id( "t_sewage_pump" );
-    t_centrifuge = ter_id( "t_centrifuge" );
     t_column = ter_id( "t_column" );
     t_vat = ter_id( "t_vat" );
     t_rootcellar = ter_id( "t_rootcellar" );
@@ -1098,12 +1119,7 @@ void set_ter_ids()
     t_covered_well = ter_id( "t_covered_well" );
     t_water_pump = ter_id( "t_water_pump" );
     t_conveyor = ter_id( "t_conveyor" );
-    t_machinery_light = ter_id( "t_machinery_light" );
-    t_machinery_heavy = ter_id( "t_machinery_heavy" );
-    t_machinery_old = ter_id( "t_machinery_old" );
-    t_machinery_electronic = ter_id( "t_machinery_electronic" );
     t_open_air = ter_id( "t_open_air" );
-    t_plut_generator = ter_id( "t_plut_generator" );
     t_pavement_bg_dp = ter_id( "t_pavement_bg_dp" );
     t_pavement_y_bg_dp = ter_id( "t_pavement_y_bg_dp" );
     t_sidewalk_bg_dp = ter_id( "t_sidewalk_bg_dp" );
@@ -1620,7 +1636,6 @@ void furn_t::load( const JsonObject &jo, const std::string &src )
     optional( jo, was_loaded, "lockpick_result", lockpick_result, string_id_reader<furn_t> {},
               furn_str_id::NULL_ID() );
     optional( jo, was_loaded, "lockpick_message", lockpick_message, translation() );
-
 
     oxytorch = cata::make_value<activity_data_furn>();
     if( jo.has_object( "oxytorch" ) ) {

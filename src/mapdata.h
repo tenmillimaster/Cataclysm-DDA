@@ -31,6 +31,10 @@ struct furn_t;
 struct itype;
 struct tripoint;
 
+// size of connect groups bitset; increase if needed
+const int NUM_TERCONN = 32;
+connect_group get_connect_group( const std::string &name );
+
 template <typename E> struct enum_traits;
 
 struct map_bash_info {
@@ -301,6 +305,7 @@ enum class ter_furn_flag : int {
     TFLAG_TRANSPARENT_FLOOR,
     TFLAG_TOILET_WATER,
     TFLAG_ELEVATOR,
+    TFLAG_ACTIVE_GENERATOR,
 
     NUM_TFLAG_FLAGS
 };
@@ -310,37 +315,17 @@ struct enum_traits<ter_furn_flag> {
     static constexpr ter_furn_flag last = ter_furn_flag::NUM_TFLAG_FLAGS;
 };
 
-/*
- * Terrain groups which affect whether the terrain connects visually.
- * Groups are also defined in ter_connects_map() in mapdata.cpp which matches group to JSON string.
- */
-enum ter_connects : int {
-    TERCONN_NONE,
-    TERCONN_WALL,
-    TERCONN_CHAINFENCE,
-    TERCONN_WOODFENCE,
-    TERCONN_RAILING,
-    TERCONN_POOLWATER,
-    TERCONN_WATER,
-    TERCONN_PAVEMENT,
-    TERCONN_PAVEMENT_MARKING,
-    TERCONN_RAIL,
-    TERCONN_COUNTER,
-    TERCONN_CANVAS_WALL,
-    TERCONN_SAND,
-    TERCONN_PIT_DEEP,
-    TERCONN_LINOLEUM,
-    TERCONN_CARPET,
-    TERCONN_CONCRETE,
-    TERCONN_CLAY,
-    TERCONN_DIRT,
-    TERCONN_ROCKFLOOR,
-    TERCONN_MULCHFLOOR,
-    TERCONN_METALFLOOR,
-    TERCONN_WOODFLOOR,
-    TERCONN_INDOORFLOOR,
+struct connect_group {
+    public:
+        connect_group_id id;
+        int index;
+        std::set<ter_furn_flag> group_flags;
+        std::set<ter_furn_flag> connects_to_flags;
+        std::set<ter_furn_flag> rotates_to_flags;
 
-    NUM_TERCONN
+        bool was_loaded;
+        static void load( const JsonObject &jo );
+        static void reset();
 };
 
 struct activity_byproduct {
@@ -778,20 +763,18 @@ extern ter_id t_null,
        t_gas_pump, t_gas_pump_smashed,
        t_diesel_pump, t_diesel_pump_smashed,
        t_atm,
-       t_generator_broken,
        t_missile, t_missile_exploded,
        t_radio_tower, t_radio_controls,
-       t_console_broken, t_console, t_gates_mech_control, t_gates_control_concrete, t_gates_control_brick,
+       t_gates_mech_control, t_gates_control_concrete, t_gates_control_brick,
        t_barndoor, t_palisade_pulley,
        t_gates_control_metal,
        t_sewage_pipe, t_sewage_pump,
-       t_centrifuge,
        t_column,
        t_vat,
        t_rootcellar,
        t_cvdbody, t_cvdmachine,
        t_water_pump,
-       t_conveyor, t_machinery_light, t_machinery_heavy, t_machinery_old, t_machinery_electronic,
+       t_conveyor,
        t_improvised_shelter,
        // Staircases etc.
        t_stairs_down, t_stairs_up, t_manhole, t_ladder_up, t_ladder_down, t_slope_down,
@@ -805,7 +788,7 @@ extern ter_id t_null,
        t_rock_red, t_rock_green, t_rock_blue, t_floor_red, t_floor_green, t_floor_blue,
        t_switch_rg, t_switch_gb, t_switch_rb, t_switch_even,
        t_rdoor_c, t_rdoor_b, t_rdoor_o, t_mdoor_frame, t_window_reinforced, t_window_reinforced_noglass,
-       t_window_enhanced, t_window_enhanced_noglass, t_open_air, t_plut_generator,
+       t_window_enhanced, t_window_enhanced_noglass, t_open_air,
        t_pavement_bg_dp, t_pavement_y_bg_dp, t_sidewalk_bg_dp, t_guardrail_bg_dp,
        t_linoleum_white, t_linoleum_gray, t_rad_platform,
        // Railroad and subway
