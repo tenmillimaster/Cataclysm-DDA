@@ -5,16 +5,54 @@
     "replace": "tinfoil_hat"
   },
   {
+    "id": "mobile_memory_card_used",
+    "type": "MIGRATION",
+    "replace": "memory_card"
+  },
+  {
+    "id": "mobile_memory_card",
+    "type": "MIGRATION",
+    "replace": "memory_card_unread",
+    "reset_item_vars": true
+  },
+  {
+    "id": "mobile_memory_card_encrypted",
+    "type": "MIGRATION",
+    "replace": "memory_card_unread",
+    "reset_item_vars": true
+  },
+  {
+    "id": "mobile_memory_card_science",
+    "type": "MIGRATION",
+    "replace": "memory_card_science",
+    "reset_item_vars": true
+  },
+  {
     "id": "nato_assault_rifle",
     "from_variant": "scar_l",
     "type": "MIGRATION",
     "replace": "scar_l"
   },
   {
-    "id": "m27_assault_rifle",
+    "id": "modular_m27_assault_rifle",
     "from_variant": "scar_l",
     "type": "MIGRATION",
     "replace": "scar_l"
+  },
+  {
+    "id": "ammunition_box_223",
+    "type": "MIGRATION",
+    "replace": "ammo_box_army_10_338"
+  },
+  {
+    "id": "ammunition_box_308",
+    "type": "MIGRATION",
+    "replace": "ammo_box_2"
+  },
+  {
+    "id": "ammunition_box_50bmg",
+    "type": "MIGRATION",
+    "replace": "ammo_box_4"
   },
   {
     "id": "r_paint",
@@ -100,21 +138,6 @@
     "id": "badge_cybercop",
     "type": "MIGRATION",
     "replace": "badge_marshal"
-  },
-  {
-    "id": "rm298",
-    "type": "MIGRATION",
-    "replace": "rcmg840"
-  },
-  {
-    "id": "rm614_lmg",
-    "type": "MIGRATION",
-    "replace": "rcmg840"
-  },
-  {
-    "id": "rm51_assault_rifle",
-    "type": "MIGRATION",
-    "replace": "rsa840"
   },
   {
     "id": "bio_power_armor_interface",
@@ -220,5 +243,91 @@
     "id": "burdock_stalk",
     "type": "MIGRATION",
     "replace": "plant_stalk"
+  },
+  {
+    "id": "beverage_bag",
+    "type": "MIGRATION",
+    "replace": "bag_zipper",
+    "sealed": false
+  },
+  {
+    "id": "bot_mininuke_hack",
+    "type": "MIGRATION",
+    "replace": "broken_mininuke_hack"
+  },
+  {
+    "id": "knife_combat_marine_mod",
+    "type": "MIGRATION",
+    "replace": "knife_combat_marine"
+  },
+  {
+    "id": "knife_combat_army_mod",
+    "type": "MIGRATION",
+    "replace": "knife_combat_army"
+  },
+  {
+    "id": "knife_combat_mod",
+    "type": "MIGRATION",
+    "replace": "knife_combat"
+  },
+  {
+    "id": "sword_bayonet_mod",
+    "type": "MIGRATION",
+    "replace": "sword_bayonet"
+  },
+  {
+    "id": "20x66_bootleg_flechette",
+    "type": "MIGRATION",
+    "replace": "20x66_shot"
+  },
+  {
+    "id": "20x66_bootleg_shot",
+    "type": "MIGRATION",
+    "replace": "20x66_shot"
+  },
+  {
+    "id": "20x66_bootleg_slug",
+    "type": "MIGRATION",
+    "replace": "20x66_shot"
+  },
+  {
+    "id": "20x66_flechette",
+    "type": "MIGRATION",
+    "replace": "20x66_shot"
+  },
+  {
+    "id": "20x66_inc",
+    "type": "MIGRATION",
+    "replace": "20x66_shot"
+  },
+  {
+    "id": "762_m43",
+    "type": "MIGRATION",
+    "replace": "762_m87"
+  },
+  {
+    "id": "reloaded_762_m43",
+    "type": "MIGRATION",
+    "replace": "reloaded_762_m87"
+  },
+  {
+    "id": "bp_762_m43",
+    "type": "MIGRATION",
+    "replace": "bp_762_m87"
+  },
+  {
+    "id": "rm4502",
+    "type": "MIGRATION",
+    "replace": "pressurized_tank_modern"
+  },
+  {
+    "id": "rm4504",
+    "type": "MIGRATION",
+    "replace": "pressurized_tank_modern"
+  },
+  {
+    "id": "riv_scope",
+    "type": "MIGRATION",
+    "replace": "pressurized_tank_modern"
   }
 ]

@@ -180,7 +180,7 @@
     "price": 68000,
     "price_postapoc": 750,
     "material": [ "aluminum", "glass" ],
-    "symbol": ":",
+    "symbol": ":",84
     "color": "dark_gray",
     "location": "sights",
     "mod_targets": [ "rifle", "crossbow", "launcher" ],
@@ -260,17 +260,23 @@
     "mod_targets": [ "smg", "rifle", "shotgun", "launcher", "crossbow" ]
   },
   {
-    "id": "riv_scope",
-    "copy-from": "rifle_scope",
+    "id": "lpvo_advanced",
     "type": "GUNMOD",
-    "name": { "str": "RS1219 scope" },
-    "description": "An integral component of experimental Rivtech NGSW trial rifles, the RS1219 Accipiter digital scope provides auto-adjusting focal length, a user-selectable reticle, and an offset reflex sight for close objectives.",
-    "weight": "0 g",
-    "volume": "0 ml",
-    "price": 0,
-    "material": [ "aluminum", "plastic", "glass" ],
+    "weight": "1200 g",
+    "volume": "429 ml",
+    "price": 1080000,
+    "price": 1000,
+    "name": { "str": "XM157 scope" },
+    "description": "A product of the Next Generation Squad Weapon trials, this 'Fire Control System' marries a traditional Low Powered Variable Optic with 1-8x zoom and an etched reticle with a suite of electronics displayed within the view of the scope.  A laser rangefinder, ballistic solver, environmental sensors, and aiming lasers all work in tandem to display ballistic solutions for the user.  It's even got a compass!",
+    "symbol": ":",
+    "color": "dark_gray",
+    "location": "sights",
+    "mod_targets": [ "rifle", "crossbow", "launcher" ],
+    "material": [ "aluminum", "glass" ],
     "aim_speed_modifier": 0,
-    "flags": [ "ZOOM", "IRREMOVABLE" ]
+    "field_of_view": 270,
+    "min_skills": [ [ "weapon", 2 ], [ "gun", 4 ] ],
+    "flags": [ "DISABLE_SIGHTS", "ZOOM" ]
   },
   {
     "id": "tele_sight",
